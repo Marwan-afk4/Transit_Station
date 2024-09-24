@@ -30,6 +30,7 @@ class UserController extends Controller
             'email'=>'required|email|unique:users',
             'password'=>'required|min:6',
             'phone'=>'required|unique:users',
+            'role'=>'nullable|in:admin,user,driver',
         ]);
 
         if($validate->fails()){
@@ -40,13 +41,14 @@ class UserController extends Controller
         'name'=>$request->name,
         'email'=>$request->email,
         'password'=>Hash::make($request->password),
-        'phone'=>$request->phone
+        'phone'=>$request->phone,
+        'role'=>$request->role ?? 'user',
     ]);
     $token = $validate->createToken('*')->plainTextToken;
     $data=[
         'message'=>'registered successfully',
         'data'=>$validate,
-        'token'=>$token
+        'token'=>$token,
     ];
     return response()->json($data);
 }
@@ -60,12 +62,14 @@ class UserController extends Controller
         if(!Auth::attempt($credentials)){
             return response()->json(['message'=>'invalid credentials'],401);
         }
+        $role=Auth::user()->role;
         $user= Auth::user();
         $token=$user->createToken('auth_token')->plainTextToken;
         $data=[
             'message'=>'logged in successfully',
             'data'=>$user,
-            'token'=>$token
+            'token'=>$token,
+            'role'=>$role
         ];
         return response()->json($data);
     }
