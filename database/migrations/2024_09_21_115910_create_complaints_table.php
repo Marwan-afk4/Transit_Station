@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('complaints', function (Blueprint $table) {
-            $table->id();   
+            $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('driver_id')->nullable()->constrained()->onDelete('cascade');
-            $table->text('complaint')->nullable();
-            $table->date('date')->nullable();
+            $table->text('complaint')->Notnull();
+            $table->date('date')->Notnull();
             $table->timestamps();
         });
     }

@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('car_id')->nullable()->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
-            $table->foreignId('location_id')->nullable()->constrained()->onDelete('cascade');
-            $table->time('request_time')->nullable();
-            $table->date('pick_up_date')->nullable();
+            $table->foreignId('car_id')->Notnull()->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->Notnull()->constrained()->onDelete('cascade');
+            $table->foreignId('location_id')->Notnull()->constrained()->onDelete('cascade');
+            $table->time('request_time')->Notnull();
+            $table->date('pick_up_date')->Notnull();
             $table->timestamps();
         });
     }

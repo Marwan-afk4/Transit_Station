@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('expences', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('type_expence_id')->nullable()->constrained()->onDelete('cascade');
-            $table->float('expence_amount')->nullable();
-            $table->date('date')->nullable();
+            $table->foreignId('type_expence_id')->Notnull()->constrained()->onDelete('cascade');
+            $table->float('expence_amount')->Notnull();
+            $table->date('date')->Notnull();
             $table->timestamps();
         });
     }

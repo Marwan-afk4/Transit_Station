@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('type_expences', function (Blueprint $table) {
             $table->id();
-            $table->string('type_name')->nullable();
+            $table->string('type_name')->Notnull();
             $table->timestamps();
         });
     }

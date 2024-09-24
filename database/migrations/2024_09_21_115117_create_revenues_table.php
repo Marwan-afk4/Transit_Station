@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('revenues', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('type_revenue_id')->nullable()->constrained()->onDelete('cascade');
-            $table->float('revenue_amount')->nullable();
-            $table->date('date')->nullable();
+            $table->foreignId('type_revenue_id')->Notnull()->constrained()->onDelete('cascade');
+            $table->float('revenue_amount')->Notnull();
+            $table->date('date')->Notnull();
             $table->timestamps();
         });
     }

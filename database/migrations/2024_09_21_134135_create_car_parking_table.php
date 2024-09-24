@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('car_parking', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('car_id')->nullable()->constrained()->onDelete('cascade');
-            $table->foreignId('parking_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('car_id')->Notnull()->constrained()->onDelete('cascade');
+            $table->foreignId('parking_id')->Notnull()->constrained()->onDelete('cascade');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

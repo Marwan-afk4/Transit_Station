@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('parkings', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->integer('capacity')->nullable();
-            $table->text('location')->nullable();   
+            $table->string('name')->Notnull();
+            $table->integer('capacity')->Notnull();
+            $table->text('location')->Notnull();
             $table->timestamps();
         });
     }

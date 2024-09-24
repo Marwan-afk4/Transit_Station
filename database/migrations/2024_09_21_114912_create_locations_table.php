@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
-            $table->text('pick_up_address')->nullable();
+            $table->text('pick_up_address')->Notnull();
             $table->string('location_image');
             $table->string('address')->nullable();
             $table->string('address_in_detail');

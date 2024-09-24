@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('parking_id')->nullable()->constrained()->onDelete('cascade');
-            $table->string('name')->nullable();
-            $table->string('email')->unique()->nullable();
-            $table->string('phone')->unique()->nullable();
-            $table->string('password')->nullable();
-            $table->string('image')->nullable();
-            $table->integer('salary')->nullable();
-            $table->string('pick_up_location')->nullable();
-            $table->integer('cars_per_mounth')->nullable();
+            $table->foreignId('parking_id')->Notnull()->constrained()->onDelete('cascade');
+            $table->string('name')->Notnull();
+            $table->string('email')->unique()->Notnull();
+            $table->string('phone')->unique()->Notnull();
+            $table->string('password')->Notnull();
+            $table->string('image')->Notnull();
+            $table->integer('salary')->Notnull();
+            $table->string('pick_up_location')->Notnull();
+            $table->integer('cars_per_mounth')->Notnull();
             $table->timestamps();
         });
     }
