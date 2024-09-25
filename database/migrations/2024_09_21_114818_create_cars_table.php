@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->Notnull()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('car_number')->Notnull()->unique();
             $table->string('car_name')->Notnull();
-            $table->string('car_image');
+            $table->string('car_image')->nullable();
             $table->timestamps();
         });
     }

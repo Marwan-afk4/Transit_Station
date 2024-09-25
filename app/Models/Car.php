@@ -15,4 +15,8 @@ class Car extends Model
         'car_name',
         'car_image',
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

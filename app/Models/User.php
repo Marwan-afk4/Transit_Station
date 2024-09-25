@@ -23,4 +23,8 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function cars(){
+        return $this->hasMany(Car::class);
+    }
 }
