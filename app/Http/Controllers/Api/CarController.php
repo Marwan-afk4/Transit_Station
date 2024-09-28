@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Car;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class CarController extends Controller
 {
-
     public function usercars(Request $request ){
         $user=$request->user();
         return response()->json(['success' =>$user->cars]);
@@ -36,5 +35,4 @@ class CarController extends Controller
         ];
         return response()->json($data);
     }
-
 }

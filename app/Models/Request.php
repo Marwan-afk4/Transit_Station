@@ -17,4 +17,15 @@ class Request extends Model
         'pick_up_date'
     ];
 
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+    public function car(){
+        return $this->belongsTo(Car::class);
+    }
+
+    public function location(){
+        return $this->belongsto(Location::class);
+    }
 }

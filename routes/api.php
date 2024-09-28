@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\UserController;
-use App\Http\Controllers\CarController;
+use App\Http\Controllers\Api\CarController ;
+use App\Http\Controllers\Api\RequestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,6 @@ Route::post('/login',[UserController::class,'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user/car',[CarController::class,'usercars']);
     Route::post('/user/car/add',[CarController::class,'addcar']);
+    Route::get('/user/drpodown',[RequestController::class,'dropdown']);
+    // Route::post('/user/make-request',[RequestController::class,'addrequest']);
 });

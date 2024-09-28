@@ -15,4 +15,8 @@ class Location extends Model
         'address',
         'address_in_detail',
     ];
+
+    public function request(){
+        return $this->hasMany(Request::class);
+    }
 }
