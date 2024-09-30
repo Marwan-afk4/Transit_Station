@@ -11,6 +11,7 @@ use App\Models\Parking;
 use App\Models\Request;
 use App\Models\Revenue;
 use App\Models\Subscription;
+use App\Models\TypeRevenue;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -22,8 +23,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Driver::factory()->count(10)->create([
-        ]);
+        Driver::factory()->count(10)->create();
         // User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',

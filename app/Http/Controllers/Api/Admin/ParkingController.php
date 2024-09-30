@@ -49,22 +49,13 @@ class ParkingController extends Controller
     public function CarParking($id)
     {
         $car = Parking::where('id', $id)
-            ->with(['car' => function ($query) {
-                $query->select('cars.id', 'car_name');
-            }])
+            ->with('car.user')
             ->first()
             ->car;
 
-        $carowner = Car::where('id', $id)
-            ->with(['user' => function ($query) {
-                $query->select('users.id', 'name');
-            }])
-            ->first()
-            ->user;
 
         $data = [
             'cars' => $car,
-            'carowner' => $carowner
         ];
 
         return response()->json($data);

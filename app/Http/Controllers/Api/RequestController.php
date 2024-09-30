@@ -29,24 +29,26 @@ class RequestController extends Controller
 
     public function addrequest(Request $request){
         $validate=Validator::make($request->all(),[
-            'car_name'=>'required',
-            'pickup_location'=>'required',
-            'pickup_date'=>'required',
-            'pick_up_time'=>'required',
+            'car_id'=>'required|exists:cars,id',
+            'location_id'=>'required|exists:locations,id',
+            'pick_up_date'=>'required',
+            'request_time'=>'required',
         ]);
         if($validate->fails()){
             return response()->json($validate->errors(),400);
         }
         $validate=ModelsRequest::create([
-            'car_name'=>$request->car_name,
-            'pickup_location'=>$request->pickup_location,
-            'pickup_date'=>$request->pickup_date,
-            'pick_up_time'=>$request->pick_up_time,
+            'car_id'=>$request->car_id,
+            'location_id'=>$request->location_id,
+            'pick_up_date'=>$request->pick_up_date,
+            'request_time'=>$request->request_time,
             'user_id'=>$request->user()->id
         ]);
         $data=[
             'message'=>'Request done',
             'data'=>$validate,
         ];
+
+        return response()->json($data);
     }
 }

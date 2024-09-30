@@ -14,7 +14,7 @@ class Request extends Model
         'user_id',
         'location_id',
         'request_time',
-        'pick_up_date'
+        'pick_up_date',
     ];
 
     public function user(){

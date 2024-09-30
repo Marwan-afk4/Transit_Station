@@ -31,7 +31,7 @@ class PicklocationController extends Controller
             'address'=>$request->address,
             'address_in_detail'=>$request->address_in_detail,
             'pick_up_address'=>$request->pick_up_address,
-            'location_image'=>$request->location_image
+            'location_image'=>$request->location_image ??'default.png'
         ]);
 
         $data=[

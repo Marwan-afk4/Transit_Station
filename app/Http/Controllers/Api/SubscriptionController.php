@@ -21,7 +21,6 @@ class SubscriptionController extends Controller
                 'offer_name' => $subscription->offer->offer_name,
                 'start_date' => $subscription->start_date,
                 'end_date' => $subscription->end_date,
-                'amount' => $subscription->amount,
                 'status' => $subscription->status,
             ];
         });

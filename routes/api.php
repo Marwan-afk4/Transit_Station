@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Admin\HomeController;
 use App\Http\Controllers\Api\Admin\ParkingController;
 use App\Http\Controllers\Api\Admin\PicklocationController;
+use App\Http\Controllers\Api\Admin\UsersubsController;
 use App\Http\Controllers\Api\Auth\UserController;
 use App\Http\Controllers\Api\CarController ;
 use App\Http\Controllers\Api\RequestController;
@@ -46,6 +47,10 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
     Route::get('/admin/carparking/{id}',[ParkingController::class,'CarParking']);
 
     Route::delete('/admin/carparking/delete/{id}',[ParkingController::class,'deleteCar']);
+
+    Route::get('/admin/subscription',[UsersubsController::class,'usersubscription']);
+
+    Route::delete(('/admin/subscription/delete/{id}'),[UsersubsController::class,'destroy']);
 });
 
 
