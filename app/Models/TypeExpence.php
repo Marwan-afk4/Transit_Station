@@ -12,4 +12,9 @@ class TypeExpence extends Model
     protected $fillable = [
         'type_name'
     ];
+
+    public function expence()
+    {
+        return $this->hasMany(Expence::class);
+    }
 }

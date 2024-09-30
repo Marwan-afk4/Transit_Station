@@ -23,4 +23,8 @@ class Car extends Model
     public function request(){
         return $this->hasmany(Request::class);
     }
+
+    public function parking(){
+        return $this->belongsToMany(Parking::class,'car_parking');
+    }
 }

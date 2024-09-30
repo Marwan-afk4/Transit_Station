@@ -14,4 +14,8 @@ class Revenue extends Model
         'revenue_amount',
         'date'
     ];
+
+    public function type_revenue(){
+        return $this->belongsTo(TypeRevenue::class);
+    }
 }

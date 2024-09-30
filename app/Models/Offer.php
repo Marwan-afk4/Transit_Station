@@ -14,4 +14,9 @@ class Offer extends Model
         'offer_name',
         'duration',
     ];
+
+    public function subscription()
+    {
+        return $this->hasMany(Subscription::class);
+    }
 }

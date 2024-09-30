@@ -11,7 +11,11 @@ class Parking extends Model
 
     protected $fillable =[
         'name',
-        'capasity',
+        'capacity',
         'location'
     ];
+
+    public function car(){
+        return $this->belongsToMany(Car::class,'car_parking');
+    }
 }

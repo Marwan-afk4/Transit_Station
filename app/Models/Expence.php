@@ -14,4 +14,9 @@ class Expence extends Model
         'expence_amount',
         'date'
     ];
+
+    public function type_expence()
+    {
+        return $this->belongsTo(TypeExpence::class);
+    }
 }

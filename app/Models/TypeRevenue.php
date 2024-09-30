@@ -12,4 +12,9 @@ class TypeRevenue extends Model
     protected $fillable =[
         'type_name'
     ];
+
+    public function revenue()
+    {
+        return $this->hasMany(Revenue::class);
+    }
 }
