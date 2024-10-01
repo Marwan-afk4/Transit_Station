@@ -22,11 +22,6 @@ class RequestController extends Controller
     }
 
 
-
-
-
-
-
     public function addrequest(Request $request){
         $validate=Validator::make($request->all(),[
             'car_id'=>'required|exists:cars,id',

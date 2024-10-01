@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Admin\PicklocationController;
 use App\Http\Controllers\Api\Admin\UsersubsController;
 use App\Http\Controllers\Api\Auth\UserController;
 use App\Http\Controllers\Api\CarController ;
+use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\RequestController;
 use App\Http\Controllers\Api\SubscriptionController;
 use Illuminate\Http\Request;
@@ -30,6 +31,9 @@ Route::middleware(['auth:sanctum','IsUser'])->group(function () {
     Route::post('/user/make-request',[RequestController::class,'addrequest']);
 
     Route::get('/user/subscription',[SubscriptionController::class,'subscription']);
+
+    Route::get('/user/profile',[ProfileController::class,'profile']);
+
 });
 
 
