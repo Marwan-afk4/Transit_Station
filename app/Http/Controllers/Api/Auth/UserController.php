@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Services\ImageuploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -14,12 +13,6 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
 
-    protected $imageUploadService;
-
-    public function __construct(ImageUploadService $imageUploadService)
-    {
-        $this->imageUploadService = $imageUploadService;
-    }
 
 
     /**
@@ -42,19 +35,13 @@ class UserController extends Controller
         'password' => 'required|min:6',
         'phone' => 'required|unique:users',
         'role' => 'nullable|in:admin,user,driver',
-        'image' => 'nullable|string', // Expecting a base64 string
+        'image' => 'nullable|string',
     ]);
 
     if ($validate->fails()) {
         return response()->json($validate->errors(), 400);
     }
 
-
-    $imagePath = null;
-        if ($request->has('image')) {
-            // Use the image upload service to store the base64 image
-            $imagePath = $this->imageUploadService->uploadBase64Image($request->image, 'profile_images');
-        }
 
 
     // Create the user
@@ -71,7 +58,6 @@ class UserController extends Controller
     return response()->json([
         'message' => 'registered successfully',
         'data' => $user,
-        'image_url' => $imagePath ? asset('storage/' . $imagePath) : null,
         'token' => $token,
     ]);
 }
