@@ -4,13 +4,24 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\ImageuploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+
+    protected $imageUploadService;
+
+    public function __construct(ImageUploadService $imageUploadService)
+    {
+        $this->imageUploadService = $imageUploadService;
+    }
+
+
     /**
      * Display a listing of the resource.
      */
@@ -24,33 +35,45 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      */
     public function register(Request $request)
-    {
-        $validate=Validator::make($request->all(),[
-            'name'=>'required',
-            'email'=>'required|email|unique:users',
-            'password'=>'required|min:6',
-            'phone'=>'required|unique:users',
-            'role'=>'nullable|in:admin,user,driver',
-        ]);
+{
+    $validate = Validator::make($request->all(), [
+        'name' => 'required',
+        'email' => 'required|email|unique:users',
+        'password' => 'required|min:6',
+        'phone' => 'required|unique:users',
+        'role' => 'nullable|in:admin,user,driver',
+        'image' => 'nullable|string', // Expecting a base64 string
+    ]);
 
-        if($validate->fails()){
-            return response()->json($validate->errors(),400);
+    if ($validate->fails()) {
+        return response()->json($validate->errors(), 400);
     }
 
-    $validate=User::create([
-        'name'=>$request->name,
-        'email'=>$request->email,
-        'password'=>Hash::make($request->password),
-        'phone'=>$request->phone,
-        'role'=>$request->role ?? 'user',
+
+    $imagePath = null;
+        if ($request->has('image')) {
+            // Use the image upload service to store the base64 image
+            $imagePath = $this->imageUploadService->uploadBase64Image($request->image, 'profile_images');
+        }
+
+
+    // Create the user
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'phone' => $request->phone,
+        'image' => $imagePath ?? 'default.png',
+        'role' => $request->role ?? 'user',
     ]);
-    $token = $validate->createToken('*')->plainTextToken;
-    $data=[
-        'message'=>'registered successfully',
-        'data'=>$validate,
-        'token'=>$token,
-    ];
-    return response()->json($data);
+
+    $token = $user->createToken('auth_token')->plainTextToken;
+    return response()->json([
+        'message' => 'registered successfully',
+        'data' => $user,
+        'image_url' => $imagePath ? asset('storage/' . $imagePath) : null,
+        'token' => $token,
+    ]);
 }
 
 
@@ -70,7 +93,7 @@ class UserController extends Controller
             'message'=>'logged in successfully',
             'data'=>$user,
             'token'=>$token,
-            'role'=>$role
+            'role'=>$role,
         ];
         return response()->json($data);
     }
