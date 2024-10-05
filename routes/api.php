@@ -39,6 +39,8 @@ Route::middleware(['auth:sanctum','IsUser'])->group(function () {
 
     Route::post('/user/complaint',[ComplaintController::class,'store']);
 
+    Route::post('/user/logout',[UserController::class,'logout']);
+
 });
 
 
