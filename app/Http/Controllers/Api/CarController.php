@@ -27,7 +27,7 @@ class CarController extends Controller
         $validate=Car::create([
             'car_number'=>$request->car_number,
             'car_name'=>$request->car_name,
-            'car_image'=>$imagePath ?? 'defualt.png',
+            'car_image'=>$request->car_image ?? 'defualt.png',
             'user_id'=>$request->user()->id
         ]);
         $data=[
