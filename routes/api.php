@@ -35,7 +35,7 @@ Route::middleware(['auth:sanctum','IsUser'])->group(function () {
 
     Route::get('/user/profile',[ProfileController::class,'profile']);
 
-    Route::put('/user/profile/edit/{id}',[ProfileController::class,'editprofile']);
+    Route::put('/user/profile/edit',[ProfileController::class,'editprofile']);
 
     Route::post('/user/complaint',[ComplaintController::class,'store']);
 
