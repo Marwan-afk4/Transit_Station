@@ -30,7 +30,7 @@ Route::middleware(['auth:sanctum','IsUser'])->group(function () {
 
     Route::post('/user/make-request',[RequestController::class,'addrequest']);
 
-    Route::get('/user/subscription',[SubscriptionController::class,'subscription']);
+    Route::get('/user/subscription-details',[SubscriptionController::class,'subscription']);
 
     Route::get('/user/profile',[ProfileController::class,'profile']);
 
