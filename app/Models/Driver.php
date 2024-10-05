@@ -20,4 +20,8 @@ class Driver extends Model
         'pick_up_location',
         'cars_per_mounth',
     ];
+
+    public function complaint(){
+        return $this->hasMany(Complaint::class);
+    }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Admin\PicklocationController;
 use App\Http\Controllers\Api\Admin\UsersubsController;
 use App\Http\Controllers\Api\Auth\UserController;
 use App\Http\Controllers\Api\CarController ;
+use App\Http\Controllers\Api\ComplaintController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\RequestController;
 use App\Http\Controllers\Api\SubscriptionController;
@@ -35,6 +36,8 @@ Route::middleware(['auth:sanctum','IsUser'])->group(function () {
     Route::get('/user/profile',[ProfileController::class,'profile']);
 
     Route::put('/user/profile/edit/{id}',[ProfileController::class,'editprofile']);
+
+    Route::post('/user/complaint',[ComplaintController::class,'store']);
 
 });
 

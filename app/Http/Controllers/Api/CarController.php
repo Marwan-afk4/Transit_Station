@@ -18,7 +18,7 @@ class CarController extends Controller
         $validate=Validator::make($request->all(),[
             'car_number'=>'required|unique:cars',
             'car_name'=>'required',
-            'car_image'=>'nullable|image',
+            'car_image'=>'nullable|string',
         ]);
         if($validate->fails()){
             return response()->json($validate->errors(),400);
