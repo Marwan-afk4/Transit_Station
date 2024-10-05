@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Complaint;
@@ -22,6 +22,7 @@ class ComplaintController extends Controller
             'user_id'=>$request->user()->id,
             'date'=>now()
         ]);
+
         $data=[
             'message'=>'complaint added successfully',
             'data'=>$validate

@@ -1,11 +1,12 @@
 <?php
-namespace App\Http\Controllers\Api;
+
+namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Car;
 use App\Models\Location;
-use App\Models\Request as ModelsRequest;
 use Illuminate\Http\Request;
+use App\Models\Request as ModelsRequest;
+
 use Illuminate\Support\Facades\Validator;
 
 class RequestController extends Controller

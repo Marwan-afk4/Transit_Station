@@ -5,11 +5,11 @@ use App\Http\Controllers\Api\Admin\ParkingController;
 use App\Http\Controllers\Api\Admin\PicklocationController;
 use App\Http\Controllers\Api\Admin\UsersubsController;
 use App\Http\Controllers\Api\Auth\UserController;
-use App\Http\Controllers\Api\CarController ;
-use App\Http\Controllers\Api\ComplaintController;
-use App\Http\Controllers\Api\ProfileController;
-use App\Http\Controllers\Api\RequestController;
-use App\Http\Controllers\Api\SubscriptionController;
+use App\Http\Controllers\Api\User\CarController;
+use App\Http\Controllers\Api\User\ComplaintController;
+use App\Http\Controllers\Api\User\ProfileController;
+use App\Http\Controllers\Api\User\RequestController;
+use App\Http\Controllers\Api\User\SubscriptionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
