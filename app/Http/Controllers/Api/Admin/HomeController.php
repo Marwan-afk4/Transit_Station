@@ -61,4 +61,12 @@ class HomeController extends Controller
         return response()->json([$dataCount,$datainfo]);
 
     }
+
+    public function logout(Request $request){
+        $user=$request->user();
+        $user->currentAccessToken()->delete();
+        return response()->json(['message'=>'logged out successfully']);
+    }
 }
+
+
