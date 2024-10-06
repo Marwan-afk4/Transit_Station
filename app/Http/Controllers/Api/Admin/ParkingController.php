@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 class ParkingController extends Controller
 {
 
+    protected $parkingupdate=['name','capacity','location'];
     public function showparking()
     {
         $parkingdata = Parking::all();
@@ -52,36 +53,18 @@ class ParkingController extends Controller
             ->with('car.user')
             ->first()
             ->car;
-
-
         $data = [
-            'cars' => $car,
+            'car' => $car,
         ];
 
         return response()->json($data);
     }
 
-//     public function updateCar(Request $request, $id)
-// {
-//     // Find the car by ID
-//     $car = Car::find($id);
-
-//     if (!$car) {
-//         return response()->json(['message' => 'Car not found'], 404);
-//     }
-
-//     // Update the car details with the request data
-//     $car->car_name = $request->input('car_name', $car->car_name);
-//     $car->car_number = $request->input('car_number', $car->car_number);
-
-//     // Save the updated car data
-//     $car->save();
-
-//     return response()->json([
-//         'message' => 'Car updated successfully',
-//         'car' => $car
-//     ], 200);
-// }
+    public function update(Request $request, $id){
+        $parking = Parking::findOrFail($id);
+        $parking->update($request->only($this->parkingupdate));
+        return response()->json(['message' => 'parking updated successfully']);
+    }
 
 public function deleteCar($id)
 {

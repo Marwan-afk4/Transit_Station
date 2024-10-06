@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Validator;
 
 class PicklocationController extends Controller
 {
+
+    protected $locationupdate=['address','address_in_detail','pick_up_address','location_image'];
+
     public function showpickuplocation(Request $request){
         $locationdata=Location::all();
         $data=[
@@ -40,5 +43,20 @@ class PicklocationController extends Controller
         ];
         return response()->json($data);
 
+    }
+
+    public function deletelocation($id){
+        $location=Location::find($id);
+        if(!$location){
+            return response()->json(['message'=>'location not found'],404);
+        }
+        $location->delete();
+        return response()->json(['message'=>'location deleted successfully'],200);
+    }
+
+    public function updatelocation(Request $request,$id){
+        $location=Location::findOrFail($id);
+        $location->update($request->only($this->locationupdate));
+        return response()->json(['message'=>'location updated successfully']);
     }
 }
