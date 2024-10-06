@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Admin\ExpenceController;
 use App\Http\Controllers\Api\Admin\HomeController;
 use App\Http\Controllers\Api\Admin\ParkingController;
 use App\Http\Controllers\Api\Admin\PicklocationController;
@@ -85,7 +86,16 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
     Route::post('/admin/revenue/add',[RevenueController::class,'addrevenue']);
 
     Route::delete('/admin/revenue/destroy/{id}',[RevenueController::class,'destroy']);
+//                         expence routes
+    Route::get('/admin/expence',[ExpenceController::class,'showexcpence']);
 
+    Route::put('/admin/expence/update/{id}',[ExpenceController::class,'update']);
+
+    Route::post('/admin/expence/add',[ExpenceController::class,'addexpence']);
+
+    Route::get('/admin/expence/types',[ExpenceController::class,'expencetypes']);
+
+    Route::delete('/admin/expence/destroy/{id}',[ExpenceController::class,'destroy']);
 });
 
 

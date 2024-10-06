@@ -15,6 +15,7 @@ class RevenueController extends Controller
     public function showrevenue()
     {
         $revenue = Revenue::with('type_revenue')->get();
+        $revenueAmount=Revenue::sum('revenue_amount');
         $revenuedata = $revenue->map(function ($revenue) {
             return [
                 'id' => $revenue->id,
@@ -24,6 +25,7 @@ class RevenueController extends Controller
             ];
         });
         $data=[
+            'revenueAmount'=>$revenueAmount,
             'revenues'=>$revenuedata
         ];
         return response()->json($data);
