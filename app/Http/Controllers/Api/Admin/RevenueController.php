@@ -58,4 +58,11 @@ class RevenueController extends Controller
         $revenue->save();
         return response()->json(['message' => 'Revenue added successfully']);
     }
+
+    public function addrevenueType(Request $request){
+        $type = new TypeRevenue();
+        $type->type_name = $request->type_name;
+        $type->save();
+        return response()->json(['message' => 'Revenue type added successfully']);
+    }
 }

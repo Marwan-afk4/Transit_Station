@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
@@ -7,14 +6,24 @@ use App\Models\Offer;
 use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class UsersubsController extends Controller
 {
     protected $updateRequest = ['name', 'email', 'password', 'phone', 'role', 'image',];
     protected $subscriptionRequest = ['offer_id', 'amount','start_date','end_date','amount'];
+
     public function usersubscription(Request $request)
     {
-        $userSubscriptions = Subscription::with(['offer:id,offer_name', 'user:id,name'])->get()->map(function ($subscription) {
+        $currentDate = Carbon::now();
+
+        $userSubscriptions = Subscription::with(['offer:id,offer_name', 'user:id,name'])->get()->map(function ($subscription) use ($currentDate) {
+            // Check if subscription has expired
+            if ($currentDate->greaterThan($subscription->end_date) && $subscription->status == 1) {
+                $subscription->status = 0;
+                $subscription->save();
+            }
+
             return [
                 'id' => $subscription->user->id,
                 'user_name' => $subscription->user->name,
@@ -48,7 +57,6 @@ class UsersubsController extends Controller
 
     public function destroy($id)
     {
-
         $subscription = Subscription::findOrFail($id);
         $subscription->delete();
 

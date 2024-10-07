@@ -56,4 +56,11 @@ class ExpenceController extends Controller
         return response()->json(['message' => 'Expence added successfully']);
     }
 
+    public function addexpencetype(Request $request){
+        $type = new TypeExpence();
+        $type->type_name = $request->type_name;
+        $type->save();
+        return response()->json(['message' => 'Expence type added successfully']);
+    }
+
 }

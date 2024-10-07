@@ -4,6 +4,8 @@ use App\Http\Controllers\Api\Admin\ExpenceController;
 use App\Http\Controllers\Api\Admin\HomeController;
 use App\Http\Controllers\Api\Admin\ParkingController;
 use App\Http\Controllers\Api\Admin\PicklocationController;
+use App\Http\Controllers\Api\Admin\PlanController;
+use App\Http\Controllers\Api\Admin\RequestController as AdminRequestController;
 use App\Http\Controllers\Api\Admin\RevenueController;
 use App\Http\Controllers\Api\Admin\UsersubsController;
 use App\Http\Controllers\Api\Auth\UserController;
@@ -85,6 +87,8 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
 
     Route::post('/admin/revenue/add',[RevenueController::class,'addrevenue']);
 
+    Route::post('/admin/revenue/addtype',[RevenueController::class,'addrevenueType']);
+
     Route::delete('/admin/revenue/destroy/{id}',[RevenueController::class,'destroy']);
 //                         expence routes
     Route::get('/admin/expence',[ExpenceController::class,'showexcpence']);
@@ -95,7 +99,18 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
 
     Route::get('/admin/expence/types',[ExpenceController::class,'expencetypes']);
 
+    Route::post('/admin/expence/addtype',[ExpenceController::class,'addexpencetype']);
+
     Route::delete('/admin/expence/destroy/{id}',[ExpenceController::class,'destroy']);
+//                         plans routes
+    Route::get('/admin/plan',[PlanController::class,'showplans']);
+
+    Route::post('/admin/plan/add',[PlanController::class,'addplan']);
+
+    Route::delete('/admin/plan/destroy/{id}',[PlanController::class,'destroy']);
+//                         request routes
+    Route::get('/admin/request',[AdminRequestController::class,'requestHistory']);
+
 });
 
 

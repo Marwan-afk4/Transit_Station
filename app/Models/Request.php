@@ -28,4 +28,8 @@ class Request extends Model
     public function location(){
         return $this->belongsto(Location::class);
     }
+
+    public function parking(){
+        return $this->belongsto(Parking::class);
+    }
 }

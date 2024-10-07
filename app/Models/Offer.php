@@ -11,6 +11,7 @@ class Offer extends Model
 
     protected $fillable=[
         'price',
+        'price_discount',
         'offer_name',
         'duration',
     ];
