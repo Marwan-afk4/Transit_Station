@@ -48,17 +48,37 @@ class ParkingController extends Controller
     }
 
     public function CarParking($id)
-    {
-        $car = Parking::where('id', $id)
-            ->with('car.user')
-            ->first()
-            ->car;
-        $data = [
-            'car' => $car,
-        ];
+{
+    $data = Parking::where('id', $id)
+        ->with('car.user.subscription.offer')
+        ->first();
 
-        return response()->json($data);
-    }
+    $data = [
+        'car' => $data->car->map(function($car) {
+            $user = $car->user;
+            $subscriptions = $user->subscription->map(function($subscription) {
+                return [
+                    'offer_name' => $subscription->offer->offer_name, // Access offer name
+                    'start_date' => $subscription->start_date,
+                ];
+            });
+
+            return [
+                'id' => $car->id,
+                'car_number' => $car->car_number,
+                'car_name' => $car->car_name,
+                'user' => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'subscriptions' => $subscriptions,
+                ]
+            ];
+        }),
+    ];
+
+    return response()->json($data);
+}
+
 
     public function update(Request $request, $id){
         $parking = Parking::findOrFail($id);
