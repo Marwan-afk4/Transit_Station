@@ -20,6 +20,7 @@ class PlanController extends Controller
         $offer= new Offer();
         $offer->offer_name=$request->offer_name;
         $offer->price=$request->price;
+        $offer->price_discount=$request->price_discount;
         $offer->duration=$request->duration;
         $offer->price_discount=$request->price_discount;
         $offer->save();
