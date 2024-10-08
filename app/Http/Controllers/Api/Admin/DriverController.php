@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Driver;
+use App\Models\Location;
+use App\Models\Parking;
 use Illuminate\Http\Request;
 
 class DriverController extends Controller
@@ -22,4 +24,16 @@ class DriverController extends Controller
         $driver->update($request->only($this->updatedriver));
         return response()->json(['message'=>'driver updated successfully']);
     }
+
+    public function getdropdown(){
+        $parkings=Parking::all();
+        $locations=Location::all();
+        $data=[
+            'parkings'=>$parkings,
+            'locations'=>$locations
+        ];
+        return response()->json($data);
+    }
+
+    
 }

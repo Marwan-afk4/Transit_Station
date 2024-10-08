@@ -134,6 +134,8 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
 
     Route::put('/admin/drivers/update/{id}',[DriverController::class,'editdriver']);
 
+    Route::get('/admin/drivers/dropdown',[DriverController::class,'getdropdown']);
+
 });
 
 
