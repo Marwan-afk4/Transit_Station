@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\AlluserController;
+use App\Http\Controllers\Api\Admin\DriverController;
 use App\Http\Controllers\Api\Admin\ExpenceController;
 use App\Http\Controllers\Api\Admin\HomeController;
 use App\Http\Controllers\Api\Admin\ParkingController;
@@ -128,6 +129,10 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
     Route::put('/admin/users/update/{id}',[AlluserController::class,'updateuser']);
 
     Route::delete('/admin/users/delete/{id}',[AlluserController::class,'deleteuser']);
+//                         driver routes
+    Route::get('/admin/drivers',[DriverController::class,'showdrivers']);
+
+    Route::put('/admin/drivers/update/{id}',[DriverController::class,'editdriver']);
 
 });
 

@@ -19,6 +19,7 @@ class Driver extends Model
         'salary',
         'pick_up_location',
         'cars_per_mounth',
+        'location_id'
     ];
 
     public function complaint(){

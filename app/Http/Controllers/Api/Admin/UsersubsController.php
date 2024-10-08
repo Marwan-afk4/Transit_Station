@@ -19,7 +19,7 @@ class UsersubsController extends Controller
 
         $userSubscriptions = Subscription::with(['offer:id,offer_name', 'user:id,name'])->get()->map(function ($subscription) use ($currentDate) {
             // Check if subscription has expired
-            if ($currentDate->greaterThan($subscription->end_date) && $subscription->status == 1) {
+            if ($subscription->end_date && $currentDate->greaterThan($subscription->end_date) && $subscription->status == 1) {
                 $subscription->status = 0;
                 $subscription->save();
             }
@@ -27,7 +27,7 @@ class UsersubsController extends Controller
             return [
                 'id' => $subscription->user->id,
                 'user_name' => $subscription->user->name,
-                'offer_name' => $subscription->offer->offer_name,
+                'offer_name' => $subscription->offer->offer_name??'',
                 'start_date' => $subscription->start_date,
                 'end_date' => $subscription->end_date,
                 'amount' => $subscription->amount,
