@@ -52,6 +52,8 @@ Route::middleware(['auth:sanctum','IsUser'])->group(function () {
 Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
     Route::get('/admin/home',[HomeController::class,'HomePage']);
 
+    Route::get('/admin/profile',[AlluserController::class,'adminprofile']);
+
     Route::post('/admin/logout',[HomeController::class,'logout']);
 //                         location routes
     Route::get('/admin/locations',[PicklocationController::class,'showpickuplocation']);
@@ -134,7 +136,11 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
 
     Route::put('/admin/drivers/update/{id}',[DriverController::class,'editdriver']);
 
+    Route::post('/admin/drivers/add',[DriverController::class,'adddriver']);
+
     Route::get('/admin/drivers/dropdown',[DriverController::class,'getdropdown']);
+
+    Route::delete('/admin/drivers/delete/{id}',[DriverController::class,'deletedriver']);
 
 });
 

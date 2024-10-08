@@ -22,6 +22,11 @@ class Driver extends Model
         'location_id'
     ];
 
+    protected $hidden = [
+        'password',
+    ];
+
+
     public function complaint(){
         return $this->hasMany(Complaint::class);
     }

@@ -58,8 +58,6 @@ class AlluserController extends Controller
             return response()->json($validate->errors(),400);
         }
 
-
-
         $data=[
             'message'=>'added successfully',
             'data'=>$validate
@@ -89,6 +87,11 @@ class AlluserController extends Controller
         $user=User::find($id);
         $user->delete();
         return response()->json(['message'=>'user deleted successfully']);
+    }
+
+    public function adminprofile(Request $request){
+        $user = $request->user();
+        return response()->json(['data' => $user]);
     }
 }
 
