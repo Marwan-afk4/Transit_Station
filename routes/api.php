@@ -77,6 +77,8 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
 
     Route::get('/admin/offer/dropdown',[UsersubsController::class,'offers']);
 
+    Route::post('/admin/subscription/add',[UsersubsController::class,'addsubscription']);
+
     Route::put(('/admin/subscription/update/{user_id}'),[UsersubsController::class,'update']);
 //                         revenue routes
     Route::get('/admin/revenue',[RevenueController::class,'showrevenue']);
@@ -110,6 +112,14 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
     Route::delete('/admin/plan/destroy/{id}',[PlanController::class,'destroy']);
 //                         request routes
     Route::get('/admin/request',[AdminRequestController::class,'requestHistory']);
+
+    Route::post('/admin/request/make',[AdminRequestController::class,'makerequest']);
+
+    Route::delete('/admin/request/delete/{id}',[AdminRequestController::class,'cancelrequest']);
+
+    Route::get('/admin/request/dropdown',[AdminRequestController::class,'getallids']);
+
+    Route::put('/admin/request/update/{id}',[AdminRequestController::class,'updatestatus']);
 
 });
 

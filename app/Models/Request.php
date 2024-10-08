@@ -13,8 +13,10 @@ class Request extends Model
         'car_id',
         'user_id',
         'location_id',
+        'driver_id',
         'request_time',
         'pick_up_date',
+        'status',
     ];
 
     public function user(){

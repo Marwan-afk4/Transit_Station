@@ -44,7 +44,13 @@ class UsersubsController extends Controller
 
     public function offers(){
         $offers = Offer::all();
-        return response()->json($offers);
+        $users= User::all();
+        $data=[
+            'offers'=>$offers,
+            'users'=>$users
+        ];
+
+        return response()->json($data);
     }
 
     public function update(Request $request, $user_id)
@@ -61,5 +67,17 @@ class UsersubsController extends Controller
         $subscription->delete();
 
         return response()->json(['message' => 'Subscription deleted successfully']);
+    }
+
+    public function addsubscription(Request $request)
+    {
+        $subscription = new Subscription();
+        $subscription->offer_id = $request->offer_id;
+        $subscription->user_id = $request->user_id;
+        $subscription->amount = $request->amount;
+        $subscription->start_date = $request->start_date;
+        $subscription->end_date = $request->end_date;
+        $subscription->save();
+        return response()->json(['message' => 'Subscription added successfully']);
     }
 }
