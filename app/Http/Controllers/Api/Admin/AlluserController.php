@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Validator;
 class AlluserController extends Controller
 {
 
+    protected $updateprofile=['name','email','phone','image'];
+
     protected $updateuser=['name','email','phone','image','offer_id','start_date','end_date','amount','status'];
     public function usersubscription(Request $request)
     {
@@ -92,6 +94,18 @@ class AlluserController extends Controller
     public function adminprofile(Request $request){
         $user = $request->user();
         return response()->json(['data' => $user]);
+    }
+
+    public function edirptofileadmin(Request $request){
+        $admin_id=$request->user()->id;
+        $admin=User::find($admin_id);
+        $updateprofile=$request->only(['name','email','phone','image']);
+        $admin->name=$updateprofile['name'] ?? $admin->name;
+        $admin->email=$updateprofile['email'] ?? $admin->email;
+        $admin->phone=$updateprofile['phone'] ?? $admin->phone;
+        $admin->image=$updateprofile['image'] ?? $admin->image;
+        $admin->save();
+        return response()->json(['success' => $admin]);
     }
 }
 
