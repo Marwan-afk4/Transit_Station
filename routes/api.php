@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Admin\AlluserController;
 use App\Http\Controllers\Api\Admin\ExpenceController;
 use App\Http\Controllers\Api\Admin\HomeController;
 use App\Http\Controllers\Api\Admin\ParkingController;
@@ -21,7 +22,6 @@ Route::get('/', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get('/',[UserController::class,'index']);
 Route::post('/register',[UserController::class,'register']);
 Route::post('/login',[UserController::class,'login']);
 
@@ -120,6 +120,14 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
     Route::get('/admin/request/dropdown',[AdminRequestController::class,'getallids']);
 
     Route::put('/admin/request/update/{id}',[AdminRequestController::class,'updatestatus']);
+//                         usersScreen routes
+    Route::get('/admin/users',[AlluserController::class,'usersubscription']);
+
+    Route::post('/admin/users/add',[AlluserController::class,'adduser']);
+
+    Route::put('/admin/users/update/{id}',[AlluserController::class,'updateuser']);
+
+    Route::delete('/admin/users/delete/{id}',[AlluserController::class,'deleteuser']);
 
 });
 

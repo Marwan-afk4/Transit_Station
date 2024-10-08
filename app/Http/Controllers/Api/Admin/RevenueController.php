@@ -47,7 +47,7 @@ class RevenueController extends Controller
     public function revenuetypes(){
         $types=TypeRevenue::all();
 
-        return response()->json($types);
+        return response()->json(['tiztamer'=>$types]);
     }
 
     public function addrevenue(Request $request){

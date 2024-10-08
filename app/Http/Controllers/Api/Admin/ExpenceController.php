@@ -44,7 +44,7 @@ class ExpenceController extends Controller
 
     public function expencetypes(){
         $types=TypeExpence::all();
-        return response()->json($types);
+        return response()->json(['tiztamer'=>$types]);
     }
 
     public function addexpence(Request $request){
