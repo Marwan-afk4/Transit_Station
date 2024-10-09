@@ -29,6 +29,7 @@ class RequestController extends Controller
             'location_id'=>'required|exists:locations,id',
             'pick_up_date'=>'required',
             'request_time'=>'required',
+            'return_time'=>'nullable|date',
         ]);
         if($validate->fails()){
             return response()->json($validate->errors(),400);
@@ -38,6 +39,7 @@ class RequestController extends Controller
             'location_id'=>$request->location_id,
             'pick_up_date'=>$request->pick_up_date,
             'request_time'=>$request->request_time,
+            'return_time'=>$request->return_time,
             'user_id'=>$request->user()->id
         ]);
         $data=[

@@ -29,6 +29,7 @@ class RequestController extends Controller
         $modelrequest->request_time=$request->request_time;
         $modelrequest->user_id=$request->user_id;
         $modelrequest->driver_id=$request->driver_id;
+        $modelrequest->return_time=$request->return_time;
         $modelrequest->save();
         return response()->json(['message'=>'request made successfully']);
     }

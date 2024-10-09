@@ -16,6 +16,7 @@ class Request extends Model
         'driver_id',
         'request_time',
         'pick_up_date',
+        'return_time',
         'status',
     ];
 
