@@ -102,7 +102,7 @@ class AlluserController extends Controller
         $subscription->save();
     }
 
-    return response()->json(['message' => 'User and subscription updated successfully']);
+    return response()->json(['message' => 'done updated successfully']);
 }
 
 
