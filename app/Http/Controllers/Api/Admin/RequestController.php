@@ -60,4 +60,12 @@ class RequestController extends Controller
         $modelrequest->update($request->only($this->updatestatus));
         return response()->json(['message'=>'status updated successfully']);
     }
+
+    public function postdriver(Request $request,$id){
+        $modelrequest=ModelsRequest::find($id);
+        $selectdriver=Driver::find($request->driver_id);
+        $modelrequest->driver_id=$selectdriver->id;
+        $modelrequest->save();
+        return response()->json(['message'=>'done driver selected successfully']);
+    }
 }
