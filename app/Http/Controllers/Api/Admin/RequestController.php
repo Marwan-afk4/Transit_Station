@@ -68,4 +68,12 @@ class RequestController extends Controller
         $modelrequest->save();
         return response()->json(['message'=>'done driver selected successfully']);
     }
+
+    public function getdrivers(){
+        $drivers=Driver::all();
+        $data=[
+            'drivers'=>$drivers
+        ];
+        return response()->json($data);
+    }
 }
