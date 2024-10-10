@@ -18,10 +18,8 @@ class RequestController extends Controller
         $data = ModelsRequest::
         with(['user.subscription.offer','location'])
         ->get();
-        $output=[
-            'requests'=>$data
-        ];
-        return response()->json($output);
+
+        return response()->json($data);
     }
 
     public function makerequest(Request $request){
