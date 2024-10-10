@@ -18,7 +18,10 @@ class RequestController extends Controller
         $data = ModelsRequest::
         with(['user.subscription.offer','location'])
         ->get();
-        return response()->json($data);
+        $output=[
+            'requests'=>$data
+        ];
+        return response()->json($output);
     }
 
     public function makerequest(Request $request){
@@ -31,6 +34,7 @@ class RequestController extends Controller
         $modelrequest->driver_id=$request->driver_id;
         $modelrequest->return_time=$request->return_time;
         $modelrequest->save();
+
         return response()->json(['message'=>'request made successfully']);
     }
 
