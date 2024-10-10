@@ -66,7 +66,7 @@ class RequestController extends Controller
     public function postdriver(Request $request,$id){
         $modelrequest=ModelsRequest::find($id);
         $selectdriver=Driver::find($request->driver_id);
-        $modelrequest->driver_id=$selectdriver->id;
+        $modelrequest->driver_id = $selectdriver->id;
         $modelrequest->save();
         return response()->json(['message'=>'done driver selected successfully']);
     }
