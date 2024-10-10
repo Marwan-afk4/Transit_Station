@@ -127,6 +127,8 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
     Route::put('/admin/request/update/{id}',[AdminRequestController::class,'updatestatus']);
 
     Route::post('/admin/request/selectdriver/{id}',[AdminRequestController::class,'postdriver']);
+
+    Route::get('/admin/request/drivers',[AdminRequestController::class,'getdrivers']);
 //                         usersScreen routes
     Route::get('/admin/users',[AlluserController::class,'usersubscription']);
 
