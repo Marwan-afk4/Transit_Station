@@ -96,6 +96,10 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
 
     Route::post('/admin/revenue/addtype',[RevenueController::class,'addrevenueType']);
 
+    Route::delete('/admin/revenue/types/delete/{id}',[RevenueController::class,'deleterevenueType']);
+
+    Route::put('/admin/revenue/types/update/{id}',[RevenueController::class,'updaterevenueType']);
+
     Route::delete('/admin/revenue/destroy/{id}',[RevenueController::class,'destroy']);
 //                         expence routes
     Route::get('/admin/expence',[ExpenceController::class,'showexcpence']);
@@ -107,6 +111,10 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
     Route::get('/admin/expence/types',[ExpenceController::class,'expencetypes']);
 
     Route::post('/admin/expence/addtype',[ExpenceController::class,'addexpencetype']);
+
+    Route::delete('/admin/expence/types/delete/{id}',[ExpenceController::class,'deleterevenueType']);
+
+    Route::put('/admin/expence/types/update/{id}',[ExpenceController::class,'updaterevenueType']);
 
     Route::delete('/admin/expence/destroy/{id}',[ExpenceController::class,'destroy']);
 //                         plans routes

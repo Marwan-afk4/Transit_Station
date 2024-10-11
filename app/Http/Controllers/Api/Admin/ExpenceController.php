@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 
 class ExpenceController extends Controller
 {
+
+    protected $updateExpencetype=['type_name'];
     protected $expenceupdate = ['expence_amount','date','type_expence_id'];
 
     public function showexcpence(){
@@ -61,6 +63,18 @@ class ExpenceController extends Controller
         $type->type_name = $request->type_name;
         $type->save();
         return response()->json(['message' => 'Expence type added successfully']);
+    }
+
+    public function deleterevenueType($id){
+        $type = TypeExpence::findOrFail($id);
+        $type->delete();
+        return response()->json(['message' => 'Revenue type deleted successfully']);
+    }
+
+    public function updaterevenueType(Request $request, $id){
+        $type = TypeExpence::findOrFail($id);
+        $type->update($request->only($this->updateExpencetype));
+        return response()->json(['message' => 'Revenue type updated successfully']);
     }
 
 }

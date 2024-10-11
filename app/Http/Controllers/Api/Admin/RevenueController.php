@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 class RevenueController extends Controller
 {
 
+    protected $updaterevenuetype=['type_name'];
+
     protected $revenueupdate=['revenue_amount','date','type_revenue_id'];
 
     public function showrevenue()
@@ -18,7 +20,8 @@ class RevenueController extends Controller
         $revenueAmount=Revenue::sum('revenue_amount');
         $revenuedata = $revenue->map(function ($revenue) {
             return [
-                'id' => $revenue->id,
+                'revenue_id' => $revenue->id,
+                'type_id' => $revenue->type_revenue->id,
                 'type' => $revenue->type_revenue->type_name,
                 'revenue_amount' => $revenue->revenue_amount,
                 'date' => $revenue->date
@@ -64,5 +67,17 @@ class RevenueController extends Controller
         $type->type_name = $request->type_name;
         $type->save();
         return response()->json(['message' => 'Revenue type added successfully']);
+    }
+
+    public function deleterevenueType($id){
+        $type = TypeRevenue::findOrFail($id);
+        $type->delete();
+        return response()->json(['message' => 'Revenue type deleted successfully']);
+    }
+
+    public function updaterevenueType(Request $request, $id){
+        $type = TypeRevenue::findOrFail($id);
+        $type->update($request->only($this->updaterevenuetype));
+        return response()->json(['message' => 'Revenue type updated successfully']);
     }
 }
