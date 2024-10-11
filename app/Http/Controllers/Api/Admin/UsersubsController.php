@@ -25,7 +25,8 @@ class UsersubsController extends Controller
             }
 
             return [
-                'id' => $subscription->user->id,
+                'subscription_id'=> $subscription->id,
+                'user_id' => $subscription->user->id,
                 'user_name' => $subscription->user->name,
                 'offer_name' => $subscription->offer->offer_name??'',
                 'start_date' => $subscription->start_date,
@@ -63,7 +64,7 @@ class UsersubsController extends Controller
 
     public function destroy($id)
     {
-        $subscription = Subscription::findOrFail($id);
+        $subscription = Subscription::find($id);
         $subscription->delete();
 
         return response()->json(['message' => 'Subscription deleted successfully']);

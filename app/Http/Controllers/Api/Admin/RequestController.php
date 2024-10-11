@@ -36,8 +36,8 @@ class RequestController extends Controller
         return response()->json(['message'=>'request made successfully']);
     }
 
-    public function cancelrequest(Request $request){
-        $modelrequest=ModelsRequest::find($request->request_id);
+    public function cancelrequest($id){
+        $modelrequest=ModelsRequest::find($id);
         $modelrequest->delete();
         return response()->json(['message'=>'request canceled successfully']);
     }
