@@ -114,6 +114,8 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
 
     Route::post('/admin/plan/add',[PlanController::class,'addplan']);
 
+    Route::put('/admin/plan/update/{id}',[PlanController::class,'update']);
+
     Route::delete('/admin/plan/delete/{id}',[PlanController::class,'destroy']);
 //                         request routes
     Route::get('/admin/request',[AdminRequestController::class,'requestHistory']);

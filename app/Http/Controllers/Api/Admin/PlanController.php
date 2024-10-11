@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class PlanController extends Controller
 {
+    protected $updateplan=['offer_name','price','price_discount','duration'];
     public function showplans(Request $request){
         $plans= Offer::all();
         $data=[
@@ -22,7 +23,6 @@ class PlanController extends Controller
         $offer->price=$request->price;
         $offer->price_discount=$request->price_discount;
         $offer->duration=$request->duration;
-        $offer->price_discount=$request->price_discount;
         $offer->save();
         return response()->json(['message' => 'plan added successfully']);
     }
@@ -31,5 +31,11 @@ class PlanController extends Controller
         $offer= Offer::findOrFail($id);
         $offer->delete();
         return response()->json(['message' => 'plan deleted successfully']);
+    }
+
+    public function update(Request $request, $id){
+        $offer = Offer::findOrFail($id);
+        $offer->update($request->only($this->updateplan));
+        return response()->json(['message' => 'plan updated successfully']);
     }
 }
