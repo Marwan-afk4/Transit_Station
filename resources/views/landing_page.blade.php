@@ -48,7 +48,7 @@
 
     <script>
         // Set the launch date
-        const launchDate = new Date("oct 13, 2024 00:00:00").getTime();
+        const launchDate = new Date("oct 15, 2024 00:00:00").getTime();
 
         const countdownTimer = setInterval(function() {
             const now = new Date().getTime();
