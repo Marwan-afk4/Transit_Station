@@ -19,4 +19,8 @@ class Location extends Model
     public function request(){
         return $this->hasMany(Request::class);
     }
+
+    public function driver(){
+        return $this->hasMany(Driver::class);
+    }
 }

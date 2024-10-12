@@ -30,4 +30,12 @@ class Driver extends Model
     public function complaint(){
         return $this->hasMany(Complaint::class);
     }
+
+    public function location(){
+        return $this->belongsTo(Location::class);
+    }
+
+    public function parking(){
+        return $this->belongsTo(Parking::class);
+    }
 }

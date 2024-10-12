@@ -22,4 +22,8 @@ class Parking extends Model
     public function request(){
         return $this->hasmany(Request::class);
     }
+
+    public function driver(){
+        return $this->hasmany(Driver::class);
+    }
 }

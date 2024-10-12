@@ -26,6 +26,7 @@ class UsersubsController extends Controller
 
             return [
                 'subscription_id'=> $subscription->id,
+                'offer_id' => $subscription->offer->id ?? null,
                 'user_id' => $subscription->user->id,
                 'user_name' => $subscription->user->name,
                 'offer_name' => $subscription->offer->offer_name??'',

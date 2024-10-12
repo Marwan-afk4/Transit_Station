@@ -14,10 +14,22 @@ class DriverController extends Controller
 {
     protected $updatedriver=['phone','location_id','parking_id','cars_per_mounth','name','email'];
     public function showdrivers(){
-        $drivers= Driver::all();
-        $data=[
-            'drivers'=>$drivers
-        ];
+        $drivers = Driver::with(['location:id,address', 'parking:id,name'])->get();
+
+        $data = $drivers->map(function($driver) {
+            return [
+                'id' => $driver->id,
+                'name' => $driver->name,
+                'email' => $driver->email,
+                'phone' => $driver->phone,
+                'image' => $driver->image,
+                'salary' => $driver->salary,
+                'cars_per_mounth' => $driver->cars_per_mounth,
+                'location_address' => $driver->location->address ?? 'N/A', // Include location address
+                'parking_name' => $driver->parking->name ?? 'N/A',         // Include parking name
+            ];
+        });
+
         return response()->json($data);
     }
 
