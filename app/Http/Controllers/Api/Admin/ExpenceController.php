@@ -19,6 +19,7 @@ class ExpenceController extends Controller
         $expencedata = $expence->map(function ($expence) {
             return [
                 'id' => $expence->id,
+                'type_id' => $expence->type_expence->id,
                 'type' => $expence->type_expence->type_name,
                 'expence_amount' => $expence->expence_amount,
                 'date' => $expence->date
