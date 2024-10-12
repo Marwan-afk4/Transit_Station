@@ -7,8 +7,10 @@ use App\Models\Driver;
 use App\Models\Expence;
 use App\Models\Location;
 use App\Models\Parking;
+use App\Models\Request as ModelsRequest;
 use App\Models\Revenue;
 use App\Models\Subscription;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -16,6 +18,8 @@ class HomeController extends Controller
     public function HomePage(Request $request){
         $PickupLocationCount=Location::count();
         $parkingCount=Parking::count();
+        $usercount=User::count();
+        $requestcount=ModelsRequest::where('status',1)->count();
         $SubscriptionCount=Subscription::count();
         $DriverCount=Driver::count();
         $revenueAmount=Revenue::sum('revenue_amount');
@@ -43,6 +47,8 @@ class HomeController extends Controller
         });
 
         $dataCount=[
+            'usercount'=>$usercount,
+            'requestcount'=>$requestcount,
             'PickupLocationCount'=>$PickupLocationCount,
             'parkingCount'=>$parkingCount,
             'SubscriptionCount'=>$SubscriptionCount,

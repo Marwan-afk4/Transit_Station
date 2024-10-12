@@ -20,7 +20,7 @@ class AlluserController extends Controller
     {
         $currentDate = Carbon::now();
 
-        $userSubscriptions = Subscription::with(['offer:id,offer_name', 'user:id,name,email'])->get()->map(function ($subscription) use ($currentDate) {
+        $userSubscriptions = Subscription::with(['offer:id,offer_name', 'user:id,name,email,phone'])->get()->map(function ($subscription) use ($currentDate) {
             // Check if subscription has expired
             if ($subscription->end_date && $currentDate->greaterThan($subscription->end_date) && $subscription->status == 1) {
                 $subscription->status = 0;
@@ -28,10 +28,12 @@ class AlluserController extends Controller
             }
 
             return [
-                'id' => $subscription->user->id,
-                'user_name' => $subscription->user->name,
-                'user_email' => $subscription->user->email,
-                'offer_name' => $subscription->offer->offer_name??'null' ,
+                'id' => $subscription->user->id ?? null,
+                'user_name' => $subscription->user->name ?? 'N/A',
+                'user_email' => $subscription->user->email ?? 'N/A',
+                'user_phone' => $subscription->user->phone ,
+                'offer_id' => $subscription->offer->id ?? null,
+                'offer_name' => $subscription->offer->offer_name ?? 'N/A' ,
                 'start_date' => $subscription->start_date,
                 'end_date' => $subscription->end_date,
                 'amount' => $subscription->amount,
