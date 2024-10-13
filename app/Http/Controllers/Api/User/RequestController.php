@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use App\Models\Request as ModelsRequest;
-
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 class RequestController extends Controller
@@ -26,6 +26,14 @@ class RequestController extends Controller
 
 
     public function addrequest(Request $request){
+
+        $user=$request->user();
+        $currentdate=Carbon::now();
+        $subscription=$user->subscription()->latest()->first();
+        if(!$subscription || ($subscription->end_date && $currentdate->greaterThan($subscription->end_date))){
+            return response()->json(['message'=>'Please subscribe first'],403);
+        }
+
         $validate=Validator::make($request->all(),[
             'car_id'=>'required|exists:cars,id',
             'location_id'=>'required|exists:locations,id',
