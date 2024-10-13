@@ -17,36 +17,39 @@ class AlluserController extends Controller
 
     protected $updateuser=['name','email','phone','image','offer_id','start_date','end_date','amount','status'];
     public function usersubscription(Request $request)
-    {
-        $currentDate = Carbon::now();
+{
+    $currentDate = Carbon::now();
 
-        $userSubscriptions = Subscription::with(['offer:id,offer_name', 'user:id,name,email,phone'])->get()->map(function ($subscription) use ($currentDate) {
-            // Check if subscription has expired
-            if ($subscription->end_date && $currentDate->greaterThan($subscription->end_date) && $subscription->status == 1) {
-                $subscription->status = 0;
-                $subscription->save();
-            }
+    // Get all users with their subscriptions (if any)
+    $userSubscriptions = User::with(['subscription.offer:id,offer_name'])->get()->map(function ($user) use ($currentDate) {
+        // Get the first subscription (if any)
+        $subscription = $user->subscription ? $user->subscription->first() : null;
 
-            return [
-                'id' => $subscription->user->id ?? null,
-                'user_name' => $subscription->user->name ?? 'N/A',
-                'user_email' => $subscription->user->email ?? 'N/A',
-                'user_phone' => $subscription->user->phone ,
-                'offer_id' => $subscription->offer->id ?? null,
-                'offer_name' => $subscription->offer->offer_name ?? 'N/A' ,
-                'start_date' => $subscription->start_date,
-                'end_date' => $subscription->end_date,
-                'amount' => $subscription->amount,
-                'status' => $subscription->status
-            ];
-        });
+        // Check if the subscription exists and if it has expired
+        if ($subscription && $subscription->end_date && $currentDate->greaterThan($subscription->end_date) && $subscription->status == 1) {
+            $subscription->status = 0;
+            $subscription->save();
+        }
 
-        $data = [
-            'users' => $userSubscriptions,
+        // Return user data along with subscription details (if it exists)
+        return [
+            'id' => $user->id,
+            'user_name' => $user->name,
+            'user_email' => $user->email,
+            'user_phone' => $user->phone,
+            'offer_name' => $subscription ? optional($subscription->offer)->offer_name : 'No Offer',
+            'start_date' => $subscription->start_date ?? null,
+            'end_date' => $subscription->end_date ?? null,
+            'amount' => $subscription->amount ?? null,
+            'status' => $subscription->status ?? null,
         ];
+    });
 
-        return response()->json($data);
-    }
+    return response()->json(['users' => $userSubscriptions]);
+}
+
+
+
 
     public function adduser(Request $request){
 
@@ -79,10 +82,10 @@ class AlluserController extends Controller
         $user->image = $request->image ??'';
         $user->role = $request->role ??'user';
         $user->save();
-        $user->subscription()->create(['offer_id' => $request->offer_id ,
-        'start_date'=>$request->start_date,
-        'end_date'=>$request->end_date,
-        'amount'=>$request->amount,]);
+        // $user->subscription()->create(['offer_id' => $request->offer_id ]);
+        // 'start_date'=>$request->start_date,
+        // 'end_date'=>$request->end_date,
+        // 'amount'=>$request->amount,]);
         return response()->json(['message' => 'User added successfully']);
     }
 

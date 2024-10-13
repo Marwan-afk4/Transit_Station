@@ -11,13 +11,15 @@ use Illuminate\Support\Facades\Validator;
 
 class RequestController extends Controller
 {
+
+    protected $updaterequest=['pick_up_date','request_time','return_time','car_id','location_id'];
     public function dropdown(Request $request){
         $user=$request->user();
         $car=$user->cars;
         $locations=Location::all();
         $data=[
             'cars'=>$car,
-            'locations'=>$locations
+            'locations'=>$locations,
         ];
         return response()->json($data);
     }
@@ -48,5 +50,26 @@ class RequestController extends Controller
         ];
 
         return response()->json($data);
+    }
+
+    public function getrequests(Request $request){
+        $user=$request->user();
+        $requests=$user->request;
+        $data=[
+            'requests'=>$requests
+        ];
+        return response()->json($data);
+    }
+
+    public function cancelrequest(Request $request,$id){
+        $modelrequest=ModelsRequest::find($id);
+        $modelrequest->delete();
+        return response()->json(['message'=>'request canceled successfully']);
+    }
+
+    public function updaterequest(Request $request,$id){
+        $modelrequest=ModelsRequest::find($id);
+        $modelrequest->update($request->only($this->updaterequest));
+        return response()->json(['message'=>'request updated successfully']);
     }
 }

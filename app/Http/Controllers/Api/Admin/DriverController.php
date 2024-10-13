@@ -19,6 +19,8 @@ class DriverController extends Controller
         $data = $drivers->map(function($driver) {
             return [
                 'id' => $driver->id,
+                'location_id'=>$driver->location->id,
+                'parking_id'=>$driver->parking->id,
                 'name' => $driver->name,
                 'email' => $driver->email,
                 'phone' => $driver->phone,
@@ -29,8 +31,11 @@ class DriverController extends Controller
                 'parking_name' => $driver->parking->name ?? 'N/A',         // Include parking name
             ];
         });
+        $data2=[
+            'drivers'=>$data
+        ];
 
-        return response()->json($data);
+        return response()->json($data2);
     }
 
     public function editdriver(Request $request, $id){
