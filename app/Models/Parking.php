@@ -26,4 +26,8 @@ class Parking extends Model
     public function driver(){
         return $this->hasmany(Driver::class);
     }
+
+    public function location(){
+        return $this->hasmany(Location::class);
+    }
 }

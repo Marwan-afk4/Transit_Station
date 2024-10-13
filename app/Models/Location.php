@@ -23,4 +23,8 @@ class Location extends Model
     public function driver(){
         return $this->hasMany(Driver::class);
     }
+
+    public function parking(){
+        return $this->belongsTo(Parking::class);
+    }
 }
