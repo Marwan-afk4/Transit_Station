@@ -11,7 +11,7 @@ use Carbon\Carbon;
 class UsersubsController extends Controller
 {
     protected $updateRequest = ['name', 'email', 'password', 'phone', 'role', 'image',];
-    protected $subscriptionRequest = ['offer_id', 'amount','start_date','end_date','amount'];
+    protected $subscriptionRequest = ['offer_id', 'amount','start_date','end_date','amount','user_id'];
 
     public function usersubscription(Request $request)
     {

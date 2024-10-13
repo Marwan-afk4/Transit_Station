@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Driver;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -69,19 +70,29 @@ class UserController extends Controller
             'email'=>'required|email',
             'password'=>'required|min:6'
         ]);
-        if(!Auth::attempt($credentials)){
+        $user = Driver::where('email', $request->email)
+        ->first();
+        if (empty($user)) {
+            $user = User::where('email', $request->email)
+            ->first();
+        }
+        if(empty($user)){
             return response()->json(['message'=>'invalid credentials'],401);
         }
-        $role=Auth::user()->role;
-        $user=$request->user();
-        $token=$user->createToken('auth_token')->plainTextToken;
-        $data=[
-            'message'=>'logged in successfully',
-            'data'=>$user,
-            'token'=>$token,
-            'role'=>$role,
-        ];
-        return response()->json($data);
+        if (password_verify($request->input('password'), $user->password)) {
+            $role=$user->role;
+            $token=$user->createToken('auth_token')->plainTextToken;
+            $data=[
+                'message'=>'logged in successfully',
+                'data'=>$user,
+                'token'=>$token,
+                'role'=>$role,
+            ];
+            return response()->json($data);
+        } else {
+            return response()->json(['message'=>'invalid credentials'],401);
+        }
+
     }
 
 
