@@ -12,7 +12,7 @@ class RevenueController extends Controller
 
     protected $updaterevenuetype=['type_name'];
 
-    protected $revenueupdate=['revenue_amount','date','type_id'];
+    protected $revenueupdate=['revenue_amount','date','type_revenue_id'];
 
     public function showrevenue()
     {
@@ -21,7 +21,7 @@ class RevenueController extends Controller
         $revenuedata = $revenue->map(function ($revenue) {
             return [
                 'revenue_id' => $revenue->id,
-                'type_id' => $revenue->type_revenue->id,
+                'type_revenue_id' => $revenue->type_revenue->id,
                 'type' => $revenue->type_revenue->type_name,
                 'revenue_amount' => $revenue->revenue_amount,
                 'date' => $revenue->date
