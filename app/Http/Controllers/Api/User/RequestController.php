@@ -30,7 +30,7 @@ class RequestController extends Controller
         $user=$request->user();
         $currentdate=Carbon::now();
         $subscription=$user->subscription()->latest()->first();
-        if(!$subscription || ($subscription->end_date && $currentdate->greaterThan($subscription->end_date))){
+        if(!$subscription || ($currentdate->greaterThan($subscription->end_date))){
             return response()->json(['message'=>'Please subscribe first'],403);
         }
 

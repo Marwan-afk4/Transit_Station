@@ -63,7 +63,7 @@ class DriverController extends Controller
     public function adddriver(Request $request){
         $validate= Validator::make($request->all(),[
             'phone'=>'required|unique:drivers',
-            'location_id'=>'required',
+            'location_id'=>'nullable',
             'parking_id'=>'required',
             'cars_per_mounth'=>'required',
             'name'=>'required',
@@ -79,11 +79,11 @@ class DriverController extends Controller
 
         $validate=Driver::create([
             'phone'=>$request->phone,
-            'location_id'=>$request->location_id,
+            'location_id'=>$request->location_id ?? null,
             'parking_id'=>$request->parking_id,
             'cars_per_mounth'=>$request->cars_per_mounth,
             'name'=>$request->name,
-            'role'=>$request->role ?? 'driver',
+            'role'=>$request->role ,
             'salary'=>$request->salary,
             'password'=>Hash::make($request->password),
             'email'=>$request->email,

@@ -18,9 +18,9 @@ class SubscriptionController extends Controller
             return [
                 'id' => $subscription->id,
                 'user_id' => $subscription->user_id,
-                'offer_name' => $subscription->offer->offer_name,
-                'start_date' => $subscription->start_date,
-                'end_date' => $subscription->end_date,
+                'offer_name' => $subscription->offer->offer_name ??null,
+                'start_date' => $subscription->start_date ??null,
+                'end_date' => $subscription->end_date ?? null,
                 'status' => $subscription->status,
             ];
         });
