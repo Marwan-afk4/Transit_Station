@@ -101,4 +101,12 @@ public function deleteCar($id)
     return response()->json(['message' => 'Car deleted successfully'], 200);
 }
 
+
+public function destroy($id)
+{
+    $parking = Parking::find($id);
+    $parking->delete();
+    return response()->json(['message' => 'parking deleted successfully']);
+}
+
 }

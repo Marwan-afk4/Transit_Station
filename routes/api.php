@@ -81,6 +81,8 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
     Route::get('/admin/carparking/{id}',[ParkingController::class,'CarParking']);
 
     Route::delete('/admin/carparking/delete/{id}',[ParkingController::class,'deleteCar']);
+
+    Route::delete('/admin/parking/delete/{id}',[ParkingController::class,'destroy']);
 ////////////////////////////////////////// subscription routes //////////////////////////////////////////
     Route::get('/admin/subscription',[UsersubsController::class,'usersubscription']);
 
