@@ -22,9 +22,13 @@ class RequestController extends Controller
         return [
             'id' => $request->id,
             'car_name' => $request->car->car_name ?? 'N/A',
+            'car_id' => $request->car->id ?? 'N/A',
             'user_name' => $request->user->name ?? 'N/A',
+            'user_phone' => $request->user->phone ?? 'N/A',
             'user_id'=>$request->user->id,
             'location_name' => $request->location->address ?? 'N/A',
+            'location_id' => $request->location->id ?? 'N/A',
+            'pick_up_address' => $request->pick_up_address ?? 'N/A',
             'request_time' => $request->request_time,
             'pick_up_date' => $request->pick_up_date,
             'return_time' => $request->return_time,
