@@ -23,11 +23,12 @@ class Parking extends Model
         return $this->hasmany(Request::class);
     }
 
-    public function driver(){
+    public function drivers(){
         return $this->hasmany(Driver::class);
     }
 
-    public function location(){
-        return $this->hasmany(Location::class);
-    }
+    public function locations()  // plural naming
+{
+    return $this->hasMany(Location::class);
+}
 }

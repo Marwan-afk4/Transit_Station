@@ -83,6 +83,7 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
     Route::delete('/admin/carparking/delete/{id}',[ParkingController::class,'deleteCar']);
 
     Route::delete('/admin/parking/delete/{id}',[ParkingController::class,'destroy']);
+
 ////////////////////////////////////////// subscription routes //////////////////////////////////////////
     Route::get('/admin/subscription',[UsersubsController::class,'usersubscription']);
 
@@ -166,6 +167,10 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
     Route::get('/admin/drivers/dropdown',[DriverController::class,'getdropdown']);
 
     Route::delete('/admin/drivers/delete/{id}',[DriverController::class,'deletedriver']);
+
+    Route::get('/admin/drivers/{id}/locations',[DriverController::class,'getdriverlocations']);
+
+    Route::get('/admin/parking/{parking_id}/details',[DriverController::class,'getParkingDetails']);
 
 });
 

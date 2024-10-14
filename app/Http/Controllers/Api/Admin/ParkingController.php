@@ -109,4 +109,13 @@ public function destroy($id)
     return response()->json(['message' => 'parking deleted successfully']);
 }
 
+// public function getparking($id)
+// {
+//     $parking = Parking::find($id);
+//     if (!$parking) {
+//         return response()->json(['message' => 'parking not found'], 404);
+//     }
+//     return response()->json($parking);
+// }
+
 }

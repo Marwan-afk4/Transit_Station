@@ -14,15 +14,14 @@ class Location extends Model
         'location_image',
         'address',
         'address_in_detail',
+        'parking_id'
     ];
 
     public function request(){
         return $this->hasMany(Request::class);
     }
 
-    public function driver(){
-        return $this->hasMany(Driver::class);
-    }
+
 
     public function parking(){
         return $this->belongsTo(Parking::class);

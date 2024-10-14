@@ -12,7 +12,7 @@ class Driver extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $fillable =[
+    protected $fillable = [
         'parking_id',
         'name',
         'email',
@@ -30,16 +30,21 @@ class Driver extends Authenticatable
         'remember_token',
     ];
 
-
-    public function complaint(){
+    public function complaint()
+    {
         return $this->hasMany(Complaint::class);
     }
 
-    public function location(){
-        return $this->belongsTo(Location::class);
+    public function availableLocations()
+    {
+        return $this->parking->locations;  // Correct plural relationship
     }
 
-    public function parking(){
+    public function parking()
+    {
         return $this->belongsTo(Parking::class);
     }
 }
+
+
+
