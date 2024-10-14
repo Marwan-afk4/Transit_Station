@@ -185,5 +185,7 @@ Route::middleware(['auth:sanctum', 'IsDriver'])->group(function () {
 
     Route::put('/driver/profile/edit',[HomescreenController::class,'updateprofile']);
 
+    Route::post('/driver/complaint',[HomescreenController::class,'store']); 
+
 
 });
