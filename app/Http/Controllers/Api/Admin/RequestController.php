@@ -67,6 +67,7 @@ class RequestController extends Controller
         $modelrequest=ModelsRequest::find($id);
         $selectdriver=Driver::find($request->driver_id);
         $modelrequest->driver_id = $selectdriver->id;
+        $modelrequest->status="current";
         $modelrequest->save();
         return response()->json(['message'=>'done driver selected successfully']);
     }
@@ -78,4 +79,6 @@ class RequestController extends Controller
         ];
         return response()->json($data);
     }
+
+
 }

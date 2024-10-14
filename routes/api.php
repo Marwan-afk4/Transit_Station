@@ -168,9 +168,8 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
 
     Route::delete('/admin/drivers/delete/{id}',[DriverController::class,'deletedriver']);
 
-    Route::get('/admin/drivers/{id}/locations',[DriverController::class,'getdriverlocations']);
-
     Route::get('/admin/parkingdrivers',[DriverController::class,'getparkingdriver']);
+
 
 });
 
