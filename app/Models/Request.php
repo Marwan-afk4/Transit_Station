@@ -35,4 +35,8 @@ class Request extends Model
     public function parking(){
         return $this->belongsto(Parking::class);
     }
+
+    public function driver(){
+        return $this->belongsto(Driver::class);
+    }
 }

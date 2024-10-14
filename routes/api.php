@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\Admin\RequestController as AdminRequestController;
 use App\Http\Controllers\Api\Admin\RevenueController;
 use App\Http\Controllers\Api\Admin\UsersubsController;
 use App\Http\Controllers\Api\Auth\UserController;
+use App\Http\Controllers\Api\Driver\HomescreenController;
 use App\Http\Controllers\Api\User\CarController;
 use App\Http\Controllers\Api\User\ComplaintController;
 use App\Http\Controllers\Api\User\ProfileController;
@@ -176,4 +177,5 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
 
 Route::middleware(['auth:sanctum', 'IsDriver'])->group(function () {
 
+    Route::get('/driver/home',[HomescreenController::class,'showrequests']);
 });

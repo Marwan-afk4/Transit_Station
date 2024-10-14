@@ -44,6 +44,10 @@ class Driver extends Authenticatable
     {
         return $this->belongsTo(Parking::class);
     }
+
+    public function request(){
+        return $this->hasMany(Request::class);
+    }
 }
 
 

@@ -65,7 +65,13 @@ class RequestController extends Controller
 
     public function postdriver(Request $request,$id){
         $modelrequest=ModelsRequest::find($id);
+        if(!$modelrequest){
+            return response()->json(['message'=>'request not found']);
+        }
         $selectdriver=Driver::find($request->driver_id);
+        if(!$selectdriver){
+            return response()->json(['message'=>'driver not found']);
+        }
         $modelrequest->driver_id = $selectdriver->id;
         $modelrequest->status="current";
         $modelrequest->save();
