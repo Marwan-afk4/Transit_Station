@@ -103,32 +103,42 @@ class DriverController extends Controller
         return response()->json(['drivers'=>$driver]);
     }
 
-    public function getParkingDetails($parking_id)
-{
-    $parking = Parking::with(['drivers', 'locations'])->find($parking_id);
+//     public function getParkingDetails($parking_id)
+// {
+//     $parking = Parking::with(['drivers', 'locations'])->find($parking_id);
 
-    if (!$parking) {
-        return response()->json(['message' => 'Parking not found'], 404);
-    }
+//     if (!$parking) {
+//         return response()->json(['message' => 'Parking not found'], 404);
+//     }
 
-    return response()->json([
-        'parking_name' => $parking->name,
-        'drivers' => $parking->drivers->map(function($driver) {
-            return [
-                'id' => $driver->id,
-                'name' => $driver->name,
-                'email' => $driver->email,
-                'phone' => $driver->phone
-            ];
-        }),
-        'locations' => $parking->locations->map(function($location) {
-            return [
-                'id' => $location->id,
-                'address' => $location->address,
-                'pick_up_address' => $location->pick_up_address
-            ];
-        })
-    ]);
+//     return response()->json([
+//         'parking_name' => $parking->name,
+//         'drivers' => $parking->drivers->map(function($driver) {
+//             return [
+//                 'id' => $driver->id,
+//                 'name' => $driver->name,
+//                 'email' => $driver->email,
+//                 'phone' => $driver->phone
+//             ];
+//         }),
+//         'locations' => $parking->locations->map(function($location) {
+//             return [
+//                 'id' => $location->id,
+//                 'address' => $location->address,
+//                 'pick_up_address' => $location->pick_up_address
+//             ];
+//         })
+//     ]);
+// }
+
+public function getparkingdriver(){
+    $parking=Parking::all();
+    $drivers=Driver::all();
+    $data=[
+        'parkings'=>$parking,
+        'drivers'=>$drivers,
+    ];
+    return response()->json($data);
 }
 
 }

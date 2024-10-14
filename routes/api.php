@@ -170,7 +170,7 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
 
     Route::get('/admin/drivers/{id}/locations',[DriverController::class,'getdriverlocations']);
 
-    Route::get('/admin/parking/{parking_id}/details',[DriverController::class,'getParkingDetails']);
+    Route::get('/admin/parkingdrivers',[DriverController::class,'getparkingdriver']);
 
 });
 
