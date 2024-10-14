@@ -178,4 +178,8 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
 Route::middleware(['auth:sanctum', 'IsDriver'])->group(function () {
 
     Route::get('/driver/home',[HomescreenController::class,'showrequests']);
+
+    Route::get('/driver/profile',[HomescreenController::class,'showprofile']);
+
+    Route::put('/driver/profile/edit',[HomescreenController::class,'updateprofile']);
 });

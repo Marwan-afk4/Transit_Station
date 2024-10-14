@@ -14,13 +14,29 @@ class RequestController extends Controller
 {
     protected $updatestatus=['status'];
     public function requestHistory()
-    {
-        $data = ModelsRequest::
-        with(['user.subscription.offer','location'])
-        ->get();
+{
+    $requests = ModelsRequest::with(['user.subscription.offer', 'location', 'car'])->get();
+    $data = $requests->map(function($request) {
+        $subscription = $request->user->subscription->first(); // Get the first subscription
 
-        return response()->json($data);
-    }
+        return [
+            'id' => $request->id,
+            'car_name' => $request->car->car_name ?? 'N/A',
+            'user_name' => $request->user->name ?? 'N/A',
+            'user_id'=>$request->user->id,
+            'location_name' => $request->location->address ?? 'N/A',
+            'request_time' => $request->request_time,
+            'pick_up_date' => $request->pick_up_date,
+            'return_time' => $request->return_time,
+            'status' => $request->status,
+            'offer_id' => $subscription->offer->id ?? null,
+            'offer_name' => $subscription->offer->offer_name ?? 'N/A',
+        ];
+    });
+
+    return response()->json($data);
+}
+
 
     public function makerequest(Request $request){
         $modelrequest= new ModelsRequest();

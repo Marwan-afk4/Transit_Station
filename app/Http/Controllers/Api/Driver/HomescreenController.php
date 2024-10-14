@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 class HomescreenController extends Controller
 {
 
+    protected $updatedatadriver=['name','email','phone','image'];
+
     public function showrequests(Request $request){
         $requests = ModelsRequest::with('driver' )
         ->where('driver_id', $request->user()->id)
@@ -19,7 +21,7 @@ class HomescreenController extends Controller
                 return [
                     'id'=>$request->id,
                     'car_id'=>$request->car_id ?? 'N/A',
-                    'car_name' => $request->car->name ?? 'N/A',
+                    'car_name' => $request->car->car_name ?? 'N/A',
                     'car_image' => $request->car->car_image ?? 'N/A',
                     'car_number' => $request->car->car_number ?? 'N/A',
                     'user_id'=>$request->user_id ?? 'N/A',
@@ -40,6 +42,24 @@ class HomescreenController extends Controller
                     ],
                 ];
             })
+        ];
+        return response()->json($data);
+    }
+
+    public function showprofile(Request $request){
+        $profiledetails= $request->user();
+        $data=[
+            'profile'=>$profiledetails
+        ];
+        return response()->json($data);
+    }
+
+    public function updateprofile(Request $request){
+        $driver=$request->user();
+        $driver->update($request->only($this->updatedatadriver));
+        $driver->save();
+        $data=[
+            'message'=>'profile updated successfully',
         ];
         return response()->json($data);
     }
