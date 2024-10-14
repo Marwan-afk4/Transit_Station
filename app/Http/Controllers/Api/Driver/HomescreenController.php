@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 
 class HomescreenController extends Controller
 {
-    public function showrequests(Request $request,$id){
-        $driver = $request->user();
-        $requests = ModelsRequest::with('driver')
-        ->where('driver_id',$driver)
+
+    public function showrequests(Request $request){
+        $requests = ModelsRequest::with('driver' )
+        ->where('driver_id', $request->user()->id)
         ->where('status','current')
         ->get();
         $data=[
