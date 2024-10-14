@@ -179,7 +179,11 @@ Route::middleware(['auth:sanctum', 'IsDriver'])->group(function () {
 
     Route::get('/driver/home',[HomescreenController::class,'showrequests']);
 
+    Route::delete('/driver/request/delete/{id}',[HomescreenController::class,'logout']);
+
     Route::get('/driver/profile',[HomescreenController::class,'showprofile']);
 
     Route::put('/driver/profile/edit',[HomescreenController::class,'updateprofile']);
+
+
 });
