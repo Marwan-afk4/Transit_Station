@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api\Driver;
 
 use App\Http\Controllers\Controller;
+use App\Models\Complaint;
 use App\Models\Request as ModelsRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class HomescreenController extends Controller
 {
@@ -68,5 +70,26 @@ class HomescreenController extends Controller
         $user=$request->user();
         $user->currentAccessToken()->delete();
         return response()->json(['message'=>'logged out successfully']);
+    }
+
+    public function store(Request $request){
+        $validate=Validator::make($request->all(),[
+            'complaint'=>'required|string',
+
+        ]);
+        if($validate->fails()){
+            return response()->json($validate->errors(),400);
+        }
+        $validate=Complaint::create([
+            'complaint'=>$request->complaint,
+            'driver_id'=>$request->user()->id,
+            'date'=>now()
+        ]);
+
+        $data=[
+            'message'=>'complaint added successfully',
+            'data'=>$validate
+        ];
+        return response()->json($data);
     }
 }

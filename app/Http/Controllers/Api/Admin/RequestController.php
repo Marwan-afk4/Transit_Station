@@ -28,7 +28,7 @@ class RequestController extends Controller
             'user_id'=>$request->user->id,
             'location_name' => $request->location->address ?? 'N/A',
             'location_id' => $request->location->id ?? 'N/A',
-            'pick_up_address' => $request->pick_up_address ?? 'N/A',
+            'pick_up_address' => $request->location->pick_up_address ?? 'N/A',
             'request_time' => $request->request_time,
             'pick_up_date' => $request->pick_up_date,
             'return_time' => $request->return_time,
@@ -51,6 +51,7 @@ class RequestController extends Controller
         $modelrequest->user_id=$request->user_id;
         $modelrequest->driver_id=$request->driver_id;
         $modelrequest->return_time=$request->return_time;
+        $modelrequest->status='current';
         $modelrequest->save();
 
         return response()->json(['message'=>'request made successfully']);
