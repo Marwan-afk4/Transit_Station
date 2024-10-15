@@ -32,6 +32,7 @@ class RequestController extends Controller
             'request_time' => $request->request_time,
             'pick_up_date' => $request->pick_up_date,
             'return_time' => $request->return_time,
+            'type' => $request->type,
             'status' => $request->status,
             'offer_id' => $subscription->offer->id ?? null,
             'offer_name' => $subscription->offer->offer_name ?? 'N/A',
