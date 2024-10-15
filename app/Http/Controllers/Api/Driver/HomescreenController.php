@@ -32,6 +32,8 @@ class HomescreenController extends Controller
                     'user_image' => $request->user->image ?? 'N/A',
                     'location_id' => $request->location_id ?? 'N/A',
                     'location_name' => $request->location->pick_up_address ?? 'N/A',
+                    'parking_id' => $request->location->parking_id ?? 'N/A',
+                    'parking_name' => $request->location->parking->name ?? 'N/A',
                     'request_time' => $request->request_time,
                     'pick_up_date' => $request->pick_up_date,
                     'return_time' => $request->return_time,
