@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Driver;
 
 use App\Http\Controllers\Controller;
 use App\Models\Complaint;
+use App\Models\Driver;
 use App\Models\Request as ModelsRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -95,4 +96,51 @@ class HomescreenController extends Controller
         ];
         return response()->json($data);
     }
-}
+
+    public function onthewayupdate(Request $request) {
+        $user=$request->user();
+        $changetoOntheway = Driver::find($user->id)->first();
+        $changetoOntheway->status = 'on the way';
+        $changetoOntheway->save();
+
+        return response()->json(['message' => 'Status updated to on the way']);
+    }
+
+    public function carrecivedupdate(Request $request) {
+        $user = $request->user();
+
+        $changetoCarrecived = Driver::where('id', $user->id)->first();
+        if ($changetoCarrecived) {
+            $changetoCarrecived->status = 'car received';
+            $changetoCarrecived->save();
+
+            return response()->json(['message' => 'Driver status updated to car received']);
+        } else {
+            return response()->json(['error' => 'Driver not found'], 404);
+        }
+    }
+
+    public function arrivedupdate(Request $request) {
+        $user = $request->user();
+
+        $changetoArrived = Driver::where('id', $user->id)->first();
+
+        if ($changetoArrived) {
+            $changetoArrived->status = 'arrived';
+            $changetoArrived->save();
+
+            $changerequeststatus = ModelsRequest::find($request->request_id);
+            if ($changerequeststatus) {
+                $changerequeststatus->status = 'history';
+                $changerequeststatus->save();
+
+                return response()->json(['message' => 'Driver status updated to arrived and request status updated to history']);
+            } else {
+                return response()->json(['error' => 'Request not found'], 404);
+            }
+        } else {
+            return response()->json(['error' => 'Driver not found'], 404);
+        }
+    }
+    }
+

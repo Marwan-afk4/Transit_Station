@@ -189,5 +189,9 @@ Route::middleware(['auth:sanctum', 'IsDriver'])->group(function () {
 
     Route::post('/driver/complaint',[HomescreenController::class,'store']);
 
+    Route::put('/driver/onthewayupdate',[HomescreenController::class,'onthewayupdate']);
 
+    Route::put('/driver/carrecivedupdate',[HomescreenController::class,'carrecivedupdate']);
+
+    Route::put('/driver/arrivedupdate',[HomescreenController::class,'arrivedupdate']);
 });
