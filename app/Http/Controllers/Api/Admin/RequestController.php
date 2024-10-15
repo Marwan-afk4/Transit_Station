@@ -124,5 +124,11 @@ class RequestController extends Controller
         return response()->json($data);
     }
 
+    public function changetohistory($id){
+        $modelrequest=ModelsRequest::find($id);
+        $modelrequest->status="history";
+        $modelrequest->save();
+        return response()->json(['message'=>'status updated successfully']);
+    }
 
 }

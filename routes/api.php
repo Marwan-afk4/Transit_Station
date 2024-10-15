@@ -150,6 +150,8 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
 
     Route::get('/admin/request/drivers',[AdminRequestController::class,'getdrivers']);
 
+    Route::put('/admin/request/changetohistory/{id}',[AdminRequestController::class,'changetohistory']);
+
 ////////////////////////////////////////// usersScreen routes //////////////////////////////////////////
     Route::get('/admin/users',[AlluserController::class,'usersubscription']);
 
