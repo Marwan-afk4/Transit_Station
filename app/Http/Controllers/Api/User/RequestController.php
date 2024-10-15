@@ -44,17 +44,23 @@ class RequestController extends Controller
         if($validate->fails()){
             return response()->json($validate->errors(),400);
         }
-        $validate=ModelsRequest::create([
-            'car_id'=>$request->car_id,
-            'location_id'=>$request->location_id,
-            'pick_up_date'=>$request->pick_up_date,
-            'request_time'=>$request->request_time,
-            'return_time'=>$request->return_time,
-            'user_id'=>$request->user()->id
-        ]);
+        $validate=new ModelsRequest();
+        $validate->car_id=$request->car_id;
+        $validate->location_id=$request->location_id;
+        $validate->pick_up_date=$request->pick_up_date;
+        $validate->request_time=$request->request_time;
+        $validate->return_time=$request->return_time;
+        if($request->return_time==null){
+            $validate->type='return_req';
+        }
+        else{
+            $validate->type='new_req';
+        }
+        $validate->user_id=$request->user()->id;
+        $validate->save();
+        
         $data=[
             'message'=>'Request done',
-            'data'=>$validate,
         ];
 
         return response()->json($data);

@@ -22,7 +22,7 @@ class RequestController extends Controller
         return [
             'id' => $request->id,
             'car_name' => $request->car->car_name ?? 'N/A',
-            'car_id' => $request->car->id ?? 'N/A',
+            'car_id' => $request->car->id,
             'user_name' => $request->user->name ?? 'N/A',
             'user_phone' => $request->user->phone ?? 'N/A',
             'user_id'=>$request->user->id,
@@ -43,18 +43,34 @@ class RequestController extends Controller
 
 
     public function makerequest(Request $request){
-        $modelrequest= new ModelsRequest();
-        $modelrequest->car_id=$request->car_id;
-        $modelrequest->location_id=$request->location_id;
-        $modelrequest->pick_up_date=$request->pick_up_date;
-        $modelrequest->request_time=$request->request_time;
-        $modelrequest->user_id=$request->user_id;
-        $modelrequest->driver_id=$request->driver_id;
-        $modelrequest->return_time=$request->return_time;
-        $modelrequest->status='current';
+        $request->validate([
+            'car_id' => 'required|exists:cars,id',
+            'location_id' => 'required|exists:locations,id',
+            'pick_up_date' => 'required|date',
+            'request_time' => 'required',
+            'user_id' => 'required|exists:users,id',
+            'driver_id' => 'required|exists:drivers,id',
+            'return_time' => 'nullable|date',
+        ]);
+
+        $modelrequest = new ModelsRequest();
+        $modelrequest->car_id = $request->car_id;
+        $modelrequest->location_id = $request->location_id;
+        $modelrequest->pick_up_date = $request->pick_up_date;
+        $modelrequest->request_time = $request->request_time;
+        $modelrequest->user_id = $request->user_id;
+        $modelrequest->driver_id = $request->driver_id;
+        $modelrequest->return_time = $request->return_time;
+        if($request->return_time==null){
+            $modelrequest->type='return_req';
+        }
+        else{
+            $modelrequest->type='new_req';
+        }
+        $modelrequest->status = 'current';
         $modelrequest->save();
 
-        return response()->json(['message'=>'request made successfully']);
+        return response()->json(['message' => 'Request made successfully']);
     }
 
     public function cancelrequest($id){
