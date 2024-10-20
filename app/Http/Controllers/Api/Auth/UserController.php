@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdminPosition;
 use App\Models\Driver;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -82,11 +83,17 @@ class UserController extends Controller
         if (password_verify($request->input('password'), $user->password)) {
             $role=$user->role;
             $token=$user->createToken('auth_token')->plainTextToken;
+            $adminposition=$user->admin_position;
             $data=[
                 'message'=>'logged in successfully',
-                'data'=>$user,
+                // 'data'=>$user,
                 'token'=>$token,
                 'role'=>$role,
+                'adminposition'=>$adminposition ?[
+                    'id'=>$adminposition->id,
+                    'name'=>$adminposition->name,
+                    'role'=>$adminposition->role
+                ]:null
             ];
             return response()->json($data);
         } else {

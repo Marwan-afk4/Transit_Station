@@ -79,5 +79,19 @@ class AdminrolesController extends Controller
             'data' => $adminposition->load('role'),
         ]);
     }
+
+    public function showadminposition(Request $request){
+        $roles = ['parkings','locations','offers','drivers','subscriptions','requests','plans','users','revenues','expences'];
+        $admin_positions=AdminPosition::with('role')->get();
+        $admins=User::where('role','admin')->get();
+        $data=[
+            'admin_positions'=>$admin_positions,
+            'roles'=>$roles,
+            'admins'=>$admins
+        ];
+
+        return response()->json($data);
+
+    }
 }
 
