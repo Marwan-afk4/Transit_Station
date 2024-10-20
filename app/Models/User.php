@@ -18,6 +18,7 @@ class User extends Authenticatable
         'phone',
         'role',
         'image',
+        'admin_position_id',
     ];
 
     protected $hidden = [
@@ -39,5 +40,9 @@ class User extends Authenticatable
 
     public function complaint(){
         return $this->hasMany(Complaint::class);
+    }
+
+    public function admin_position(){
+        return $this->belongsTo(AdminPosition::class);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Admin\AdminrolesController;
 use App\Http\Controllers\Api\Admin\AlluserController;
 use App\Http\Controllers\Api\Admin\DriverController;
 use App\Http\Controllers\Api\Admin\ExpenceController;
@@ -65,7 +66,7 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
 
     Route::post('/admin/logout',[HomeController::class,'logout']);
 ////////////////////////////////////////// location routes //////////////////////////////////////////
-    Route::get('/admin/locations',[PicklocationController::class,'showpickuplocation']);
+    Route::get('/admin/locations',[PicklocationController::class,'showpickuplocation'])->middleware('can:location');
 
     Route::post('/admin/locations/add',[PicklocationController::class,'addlocation']);
 
@@ -73,7 +74,7 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
 
     Route::delete('/admin/locations/delete/{id}',[PicklocationController::class,'deletelocation']);
 ////////////////////////////////////////// parking routes //////////////////////////////////////////
-    Route::get('/admin/parking',[ParkingController::class,'showparking']);
+    Route::get('/admin/parking',[ParkingController::class,'showparking'])->middleware('can:parking');
 
     Route::post('/admin/parking/add',[ParkingController::class,'addparking']);
 
@@ -86,7 +87,7 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
     Route::delete('/admin/parking/delete/{id}',[ParkingController::class,'destroy']);
 
 ////////////////////////////////////////// subscription routes //////////////////////////////////////////
-    Route::get('/admin/subscription',[UsersubsController::class,'usersubscription']);
+    Route::get('/admin/subscription',[UsersubsController::class,'usersubscription'])->middleware('can:subscription');
 
     Route::delete(('/admin/subscription/delete/{id}'),[UsersubsController::class,'destroy']);
 
@@ -96,7 +97,7 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
 
     Route::put(('/admin/subscription/update/{user_id}'),[UsersubsController::class,'update']);
 ////////////////////////////////////////// revenue routes //////////////////////////////////////////
-    Route::get('/admin/revenue',[RevenueController::class,'showrevenue']);
+    Route::get('/admin/revenue',[RevenueController::class,'showrevenue'])->middleware('can:revenue');
 
     Route::put('/admin/revenue/update/{id}',[RevenueController::class,'update']);
 
@@ -112,7 +113,7 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
 
     Route::delete('/admin/revenue/destroy/{id}',[RevenueController::class,'destroy']);
 ////////////////////////////////////////// expence routes //////////////////////////////////////////
-    Route::get('/admin/expence',[ExpenceController::class,'showexcpence']);
+    Route::get('/admin/expence',[ExpenceController::class,'showexcpence'])->middleware('can:expence');
 
     Route::put('/admin/expence/update/{id}',[ExpenceController::class,'update']);
 
@@ -128,7 +129,7 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
 
     Route::delete('/admin/expence/destroy/{id}',[ExpenceController::class,'destroy']);
 ////////////////////////////////////////// plans routes //////////////////////////////////////////
-    Route::get('/admin/plan',[PlanController::class,'showplans']);
+    Route::get('/admin/plan',[PlanController::class,'showplans'])->middleware('can:plan');
 
     Route::post('/admin/plan/add',[PlanController::class,'addplan']);
 
@@ -136,7 +137,7 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
 
     Route::delete('/admin/plan/delete/{id}',[PlanController::class,'destroy']);
 ////////////////////////////////////////// request routes //////////////////////////////////////////
-    Route::get('/admin/request',[AdminRequestController::class,'requestHistory']);
+    Route::get('/admin/request',[AdminRequestController::class,'requestHistory'])->middleware('can:request');
 
     Route::post('/admin/request/make',[AdminRequestController::class,'makerequest']);
 
@@ -153,7 +154,7 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
     Route::put('/admin/request/changetohistory/{id}',[AdminRequestController::class,'changetohistory']);
 
 ////////////////////////////////////////// usersScreen routes //////////////////////////////////////////
-    Route::get('/admin/users',[AlluserController::class,'usersubscription']);
+    Route::get('/admin/users',[AlluserController::class,'usersubscription'])->middleware('can:user');
 
     Route::post('/admin/users/add',[AlluserController::class,'adduser']);
 
@@ -161,7 +162,7 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
 
     Route::delete('/admin/users/delete/{id}',[AlluserController::class,'deleteuser']);
 ////////////////////////////////////////// driver routes //////////////////////////////
-    Route::get('/admin/drivers',[DriverController::class,'showdrivers']);
+    Route::get('/admin/drivers',[DriverController::class,'showdrivers'])->middleware('can:driver');
 
     Route::put('/admin/drivers/update/{id}',[DriverController::class,'editdriver']);
 
@@ -172,8 +173,12 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
     Route::delete('/admin/drivers/delete/{id}',[DriverController::class,'deletedriver']);
 
     Route::get('/admin/parkingdrivers',[DriverController::class,'getparkingdriver']);
+//////////////////////////////////////////admins////////////////////////////////////////////
+    Route::post('/admin/addadmin',[AdminrolesController::class,'addadmin']);
 
+    Route::post('/admin/updateadmin/{id}',[AdminrolesController::class,'edirptofileadmin']);
 
+    Route::post('/admin/addadminposition',[AdminrolesController::class,'addAdminPosition']);
 });
 
 
