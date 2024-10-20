@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Validator;
 
 class AdminrolesController extends Controller
 {
+
+    protected $updateadmin=['name','email','phone','image','password'];
     public function addadmin(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -40,18 +42,7 @@ class AdminrolesController extends Controller
         return response()->json(['admin added successfully'=>$validator]);
     }
 
-    public function edirptofileadmin(Request $request){
-        $admin_id=$request->user()->id;
-        $admin=User::find($admin_id);
-        $updateprofile=$request->only(['name','email','phone','image','password']);
-        $admin->name=$updateprofile['name'] ?? $admin->name;
-        $admin->email=$updateprofile['email'] ?? $admin->email;
-        $admin->phone=$updateprofile['phone'] ?? $admin->phone;
-        $admin->image=$updateprofile['image'] ?? $admin->image;
-        $admin->password=$updateprofile['password'] ?? $admin->password;
-        $admin->save();
-        return response()->json(['success' => $admin]);
-    }
+
 
     public function addAdminPosition(Request $request){
         $validated = $request->validate([
@@ -106,5 +97,7 @@ class AdminrolesController extends Controller
         ]);
         return response()->json(['message'=>'position added successfully']);
     }
+
+
 }
 

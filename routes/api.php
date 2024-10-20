@@ -176,7 +176,7 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
 //////////////////////////////////////////admins////////////////////////////////////////////
     Route::post('/admin/addadmin',[AdminrolesController::class,'addadmin']);
 
-    Route::post('/admin/updateadmin/{id}',[AdminrolesController::class,'edirptofileadmin']);
+    // Route::post('/admin/updateadmin/{id}',[AdminrolesController::class,'edirptofileadmin']);
 
     Route::post('/admin/addadminposition',[AdminrolesController::class,'addAdminPosition']);
 
