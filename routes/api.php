@@ -181,6 +181,8 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
     Route::post('/admin/addadminposition',[AdminrolesController::class,'addAdminPosition']);
 
     Route::get('/admin/adminposition',[AdminrolesController::class,'showadminposition']);
+
+    Route::post('/admin/addposition',[AdminrolesController::class,'addposistion']);
 });
 
 

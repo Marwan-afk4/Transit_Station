@@ -93,5 +93,18 @@ class AdminrolesController extends Controller
         return response()->json($data);
 
     }
+
+    public function addposistion(Request $request){
+        $validator= Validator::make($request->all(), [
+            'name' => 'required|string|unique:admin_positions,name',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+        AdminPosition::create([
+            'name' => $request->name,
+        ]);
+        return response()->json(['message'=>'position added successfully']);
+    }
 }
 
