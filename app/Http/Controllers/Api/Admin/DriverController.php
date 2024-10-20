@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator ;
 
 class DriverController extends Controller
 {
-    protected $updatedriver=['phone','location_id','parking_id','cars_per_mounth','name','email'];
+    protected $updatedriver=['phone','location_id','parking_id','cars_per_mounth','name','email','image'];
     public function showdrivers(){
         $drivers = Driver::with(['parking:id,name', 'parking.locations:id,address'])->get();
         $data = $drivers->map(function($driver) {
