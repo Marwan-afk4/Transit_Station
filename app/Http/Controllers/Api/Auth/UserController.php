@@ -87,7 +87,7 @@ class UserController extends Controller
 
             $data=[
                 'message'=>'logged in successfully',
-                // 'data'=>$user,
+                'data'=>$user,
                 'token'=>$token,
                 'role'=>$role,
                 'adminposition'=>$adminposition ?[
