@@ -84,6 +84,7 @@ class UserController extends Controller
             $role=$user->role;
             $token=$user->createToken('auth_token')->plainTextToken;
             $adminposition=$user->admin_position;
+
             $data=[
                 'message'=>'logged in successfully',
                 // 'data'=>$user,
@@ -93,6 +94,9 @@ class UserController extends Controller
                     'id'=>$adminposition->id,
                     'name'=>$adminposition->name,
                     'role'=>$adminposition->role
+                ]:null,
+                'permissions'=>$adminposition?[
+                    'role'=>$adminposition->role->pluck('role_name')
                 ]:null
             ];
             return response()->json($data);
