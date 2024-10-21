@@ -185,14 +185,14 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
 
     Route::post('/admin/addadminposition',[AdminrolesController::class,'addAdminPosition']);
 
-    Route::get('/admin/adminposition',[AdminrolesController::class,'showadminposition']);
+    Route::get('/admin/adminposition',[AdminrolesController::class,'showadminposition'])->middleware('can:admin');
 
     Route::put('/admin/updateadminposition/{id}',[AdminrolesController::class,'updateAdminPosition']);
 
     Route::delete('/admin/deleteadminposition/{id}',[AdminrolesController::class,'deleteAdminPosition']);
 
 //////////////////////////////////////////CarColors//////////////////////////////////////////////////
-    Route::get('/admin/colors',[ColorController::class,'showcolors']);
+    Route::get('/admin/colors',[ColorController::class,'showcolors'])->middleware('can:color');
 
     Route::post('/admin/color/add',[ColorController::class,'addColor']);
 
