@@ -68,7 +68,7 @@ class AdminrolesController extends Controller
             'image' => $request->image,
             'password' => $request->password ? Hash::make($request->password) : $admin->password,
             'admin_position_id' => $request->admin_position_id ?? null,
-            'user_code'=>$request->user_code
+            'user_code'=>$request->user_code ?? $admin->user_code
         ]);
         return response()->json(['message' => 'Admin updated successfully']);
     }
