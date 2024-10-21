@@ -19,6 +19,7 @@ class User extends Authenticatable
         'role',
         'image',
         'admin_position_id',
+        'user_code'
     ];
 
     protected $hidden = [

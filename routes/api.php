@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Admin\AdminrolesController;
 use App\Http\Controllers\Api\Admin\AlluserController;
+use App\Http\Controllers\Api\Admin\ColorController;
 use App\Http\Controllers\Api\Admin\DriverController;
 use App\Http\Controllers\Api\Admin\ExpenceController;
 use App\Http\Controllers\Api\Admin\HomeController;
@@ -63,6 +64,8 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
     Route::get('/admin/profile',[AlluserController::class,'adminprofile']);
 
     Route::put('/admin/profile/edit',[AlluserController::class,'edirptofileadmin']);
+
+    Route::put('/admin/editusercode/{id}',[AlluserController::class,'editUserCode']);
 
     Route::post('/admin/logout',[HomeController::class,'logout']);
 ////////////////////////////////////////// location routes //////////////////////////////////////////
@@ -176,13 +179,26 @@ Route::middleware(['auth:sanctum','IsAdmin'])->group(function () {
 //////////////////////////////////////////admins////////////////////////////////////////////
     Route::post('/admin/addadmin',[AdminrolesController::class,'addadmin']);
 
-    // Route::post('/admin/updateadmin/{id}',[AdminrolesController::class,'edirptofileadmin']);
+    Route::put('/admin/updateadmin/{id}',[AdminrolesController::class,'updateadmin']);
+
+    Route::delete('/admin/deleteadmin/{id}',[AdminrolesController::class,'deleteadmin']);
 
     Route::post('/admin/addadminposition',[AdminrolesController::class,'addAdminPosition']);
 
     Route::get('/admin/adminposition',[AdminrolesController::class,'showadminposition']);
 
-    Route::post('/admin/addposition',[AdminrolesController::class,'addposistion']);
+    Route::put('/admin/updateadminposition/{id}',[AdminrolesController::class,'updateAdminPosition']);
+
+    Route::delete('/admin/deleteadminposition/{id}',[AdminrolesController::class,'deleteAdminPosition']);
+
+//////////////////////////////////////////CarColors//////////////////////////////////////////////////
+    Route::get('/admin/colors',[ColorController::class,'showcolors']);
+
+    Route::post('/admin/color/add',[ColorController::class,'addColor']);
+
+    Route::put('/admin/color/update/{id}',[ColorController::class,'updateColor']);
+
+    Route::delete('/admin/color/delete/{id}',[ColorController::class,'deleteColor']);
 });
 
 

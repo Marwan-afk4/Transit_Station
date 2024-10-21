@@ -9,11 +9,14 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class AlluserController extends Controller
 {
 
     protected $updateprofile=['name','email','phone','image'];
+
+    protected $updateUserCode=['user_code'];
 
     protected $updateuser=['name','email','phone','image','offer_id','start_date','end_date','amount','status'];
     public function usersubscription(Request $request)
@@ -133,6 +136,28 @@ class AlluserController extends Controller
         $admin->password=$updateprofile['password'] ?? $admin->password;
         $admin->save();
         return response()->json(['success' => $admin]);
+    }
+
+    public function editUserCode(Request $request,$id){
+
+        $validator = Validator::make($request->all(), [
+            'user_code' => ['required', 'string', Rule::unique('users', 'user_code')->ignore($id)],
+        ]);
+        if ($validator->fails()) { // if Validate Make Error Return Message Error
+            return response()->json([
+                'error' => $validator->errors(),
+            ],400);
+        }
+
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        $user->update($request->only($this->updateUserCode));
+
+        return response()->json(['message' => 'User code updated successfully']);
     }
 }
 

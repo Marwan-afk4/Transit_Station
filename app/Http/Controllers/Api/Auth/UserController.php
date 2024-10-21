@@ -15,7 +15,30 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
 
+    public function generateNextCode(){
+        $lastCode = User::max('user_code');
 
+        if (!$lastCode) {
+            // If no code exists yet, start with 'A001'
+            return 'A001';
+        }
+
+        // Split the last code into its letter and number parts
+        $letter = substr($lastCode, 0, 1); // Get the letter part
+        $number = (int)substr($lastCode, 1); // Get the numeric part
+
+        // Increment the number
+        $number += 1;
+
+        // If number exceeds 999, reset it to 001 and move to the next letter
+        if ($number > 999) {
+            $number = 1;
+            $letter = chr(ord($letter) + 1); // Move to the next letter
+        }
+
+        // Combine the new letter and number, ensuring the number is padded to 3 digits
+        return $letter . str_pad($number, 3, '0', STR_PAD_LEFT);
+    }
 
     /**
      * Display a listing of the resource.
@@ -44,7 +67,7 @@ class UserController extends Controller
         return response()->json($validate->errors(), 400);
     }
 
-
+    $newcode=$this->generateNextCode();
 
     // Create the user
     $user = User::create([
@@ -54,6 +77,7 @@ class UserController extends Controller
         'phone' => $request->phone,
         'image' => $imagePath ?? 'default.png',
         'role' => $request->role ?? 'user',
+        'code'=>$newcode
     ]);
 
     $token = $user->createToken('auth_token')->plainTextToken;
@@ -81,6 +105,12 @@ class UserController extends Controller
             return response()->json(['message'=>'invalid credentials'],401);
         }
         if (password_verify($request->input('password'), $user->password)) {
+
+            if(is_null($user->user_code)){
+                $newcode=$this->generateNextCode();
+                $user->user_code=$newcode;
+                $user->save();
+            }
             $role=$user->role;
             $token=$user->createToken('auth_token')->plainTextToken;
             $adminposition=$user->admin_position;
