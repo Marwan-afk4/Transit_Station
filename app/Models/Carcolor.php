@@ -13,4 +13,8 @@ class Carcolor extends Model
         'color_name',
         'color_code',
     ];
+
+    public function car(){
+        return $this->hasMany(Car::class);
+    }
 }

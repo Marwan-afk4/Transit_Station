@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Car;
+use App\Models\Carcolor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -19,6 +20,7 @@ class CarController extends Controller
             'car_number'=>'required|unique:cars',
             'car_name'=>'required',
             'car_image'=>'nullable',
+            'carcolor_id'=>'required|exists:carcolors,id'
         ]);
         if($validate->fails()){
             return response()->json($validate->errors(),400);
@@ -28,11 +30,26 @@ class CarController extends Controller
             'car_number'=>$request->car_number,
             'car_name'=>$request->car_name,
             'car_image'=>$request->car_image ?? 'defualt.png',
+            'carcolor_id'=>$request->carcolor_id,
             'user_id'=>$request->user()->id
         ]);
         $data=[
-            'message'=>'added successfully',
-            'data'=>$validate,
+            'id'=>$validate->id,
+            'car_number'=>$request->car_number,
+            'car_name'=>$request->car_name,
+            'car_image'=>$request->car_image ?? null,
+            'user_id'=>$request->user()->id,
+            'carcolor_id'=>$request->carcolor_id,
+            'color_name'=>$validate->carcolor->color_name,
+            'color_code'=>$validate->carcolor->color_code,
+        ];
+        return response()->json(['message'=>'car added successfully','data'=>$data]);
+    }
+
+    public function allcolors(){
+        $colors=Carcolor::all();
+        $data=[
+            'colors'=>$colors
         ];
         return response()->json($data);
     }

@@ -14,6 +14,7 @@ class Car extends Model
         'car_number',
         'car_name',
         'car_image',
+        'carcolor_id',
     ];
 
     public function user(){
@@ -26,5 +27,9 @@ class Car extends Model
 
     public function parking(){
         return $this->belongsToMany(Parking::class,'car_parking');
+    }
+
+    public function carcolor(){
+        return $this->belongsTo(Carcolor::class);
     }
 }
