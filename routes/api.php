@@ -35,6 +35,8 @@ Route::middleware(['auth:sanctum','IsUser'])->group(function () {
 
     Route::post('/user/car/add',[CarController::class,'addcar']);
 
+    Route::get('/user/colors',[CarController::class,'allcolors']);
+
     Route::get('/user/dropdown',[RequestController::class,'dropdown']);
 
     Route::post('/user/make-request',[RequestController::class,'addrequest']);
